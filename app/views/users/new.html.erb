@@ -1,39 +1,40 @@
-<h1>Create Account</h1>
+<div class="auth-page">
+  <h1>Create Account</h1>
 
-<%= form_with model: @user do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <p><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</p>
-      <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+  <%= form_with model: @user, html: { class: "form-panel" } do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name, "Your name" %>
+      <%= form.text_field :name, placeholder: "First and last name" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.email_field :email %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password %>
+      <%= form.password_field :password, placeholder: "At least 6 characters" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :password_confirmation, "Re-enter password" %>
+      <%= form.password_field :password_confirmation %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Create Account" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, "Your name" %><br>
-    <%= form.text_field :name, placeholder: "First and last name" %><br>
-  </div>
-
-  <div>
-    <%= form.label :email %><br>
-    <%= form.email_field :email %><br>
-  </div>
-
-  <div>
-    <%= form.label :password %><br>
-    <%= form.password_field :password, placeholder: "At least 6 characters" %><br>
-  </div>
-    <%= form.label :password_confirmation,"Re-enter password" %><br>
-    <%= form.password_field :password_confirmation %><br>
-  <div>
-
-
-  <div>
-    <%= form.submit "Create Account" %>
-  </div>
-<% end %>
-
-
+</div>

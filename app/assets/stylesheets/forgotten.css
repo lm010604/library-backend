@@ -154,3 +154,168 @@ tbody tr:hover{ background:#5f3125 }
 
 /* forms */
 label{ color: var(--muted) }
+
+/* ===== Auth / Forms polish ===== */
+
+/* Page wrapper for auth screens */
+.auth-page h1 {
+  text-align: center;
+  margin: 16px 0 12px;
+}
+
+/* Panel form and box-sizing to stop overflow */
+.form-panel {
+  max-width: 520px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--gold-deep);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+/* Prevent inputs from spilling outside the panel */
+.form-panel, .form-panel * {
+  box-sizing: border-box;
+}
+
+/* Two-column field layout */
+.form-panel .field {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 14px;
+}
+
+/* Full-width rows (e.g., textarea) */
+.form-panel .field--full { grid-template-columns: 1fr; }
+
+/* Labels */
+.form-panel label {
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Inputs */
+.form-panel input[type="text"],
+.form-panel input[type="email"],
+.form-panel input[type="password"],
+.form-panel input[type="search"],
+.form-panel input[type="number"],
+.form-panel select,
+.form-panel textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #7a5329;
+  border-radius: 4px;
+  background: #31150f;
+  color: var(--ink);
+  font-size: 14px;
+  outline: none;
+}
+
+.form-panel textarea { min-height: 120px; resize: vertical; }
+.form-panel input::placeholder,
+.form-panel textarea::placeholder { color: #d2b992; }
+
+/* Focus ring */
+.form-panel input:focus,
+.form-panel select:focus,
+.form-panel textarea:focus {
+  border-color: var(--gold-deep);
+  box-shadow: 0 0 0 3px rgba(202,163,82,.18);
+  background: #351810;
+}
+
+/* Actions row */
+.form-panel .actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: center; /* center the Sign in / Create account button */
+}
+
+/* Themed submit buttons (forms only) */
+.form-panel input[type="submit"],
+.form-panel button[type="submit"] {
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #8a5a2f, #664521);
+  border: 1px solid #7a5329;
+  border-bottom-color: #4a3117;
+  border-radius: 4px;
+  color: #fff4de;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 1px 0 #caa352 inset, 0 1px 0 rgba(0,0,0,.3);
+}
+.form-panel input[type="submit"]:hover,
+.form-panel button[type="submit"]:hover { filter: brightness(1.06); }
+
+/* Autofill tint (Chrome) */
+.form-panel input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #31150f inset !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* ===== Book show polish ===== */
+.book-show h1 { margin: 0 0 10px; line-height: 1.15 }
+.rule {
+  border: 0; height: 1px; background: var(--gold-deep);
+  margin: 14px 0;
+}
+
+.reviews { list-style: none; margin: 0; padding: 0 }
+.review { margin: 10px 0 14px; padding: 0 }
+.review-head { margin-bottom: 6px }
+.review-body { margin: 0 0 8px }
+
+.review-actions { margin-top: 4px }
+.btn--sm { padding: 6px 10px; font-size: 13px }
+
+/* form tweaks reused from earlier forms pack */
+.form-panel, .form-panel * { box-sizing: border-box }
+.form-panel .field {
+  display: grid; grid-template-columns: 160px 1fr;
+  gap: 8px 12px; align-items: center; margin-bottom: 14px;
+}
+.form-panel .field--full { grid-template-columns: 1fr }
+.form-panel label { color: var(--muted); font-weight: 700; margin: 0 }
+.form-panel textarea { min-height: 140px; resize: vertical }
+
+/* make number input reasonable width */
+.input-narrow { max-width: 110px }
+
+/* theme the submit button inside the form panel */
+.form-panel input[type="submit"], .form-panel button[type="submit"] {
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #8a5a2f, #664521);
+  border: 1px solid #7a5329; border-bottom-color:#4a3117;
+  border-radius: 4px; color:#fff4de; font-size:14px; cursor:pointer;
+  box-shadow: 0 1px 0 #caa352 inset, 0 1px 0 rgba(0,0,0,.3);
+}
+.form-panel input[type="submit"]:hover,
+.form-panel button[type="submit"]:hover { filter: brightness(1.06) }
+
+.read-more-link {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--gold);
+  font-size: 0.9em;
+}
+.read-more-link:hover {
+  color: var(--gold-light);
+  text-decoration: underline;
+}
+
+html { scroll-behavior: smooth; }
+
+/* briefly highlight the anchored review */
+.review:target {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  background: rgba(202,163,82,.08);
+  border-radius: 6px;
+}
