@@ -37,6 +37,8 @@ bundle exec rake test
 
 ## SETUP WITH DOCKER:
 
+FIRST. Copy the .env.example and rename the copy to .env
+
 ```sh
 # From the project root, first run this to get the SECRET_KEY_BASE:
 docker compose run --rm web bundle exec rails secret
