@@ -1,13 +1,13 @@
 class Book < ApplicationRecord
-  belongs_to :user
-  before_create :set_date_added
-  enum :read, { read: 0, not_read_yet: 1 }
-  validates :title, presence: true
+  has_many :reviews, dependent: :destroy
+  has_many :library_entries, dependent: :destroy
+  has_many :owners, through: :library_entries, source: :user
+
+  validates :title,  presence: true
   validates :author, presence: true
-  validates :pages, presence: true
-  validates :read, presence: true
-  private
-  def set_date_added
-    self.date_added ||= Date.today
+  validates :pages,  presence: true
+
+  def average_rating
+    reviews.average(:rating)&.round(1)
   end
 end

@@ -1,0 +1,42 @@
+<div class="top-bar">
+    <%= link_to "← Back to Books", books_path, class: "back-button" %>
+  </div>
+<h1>My Library</h1>
+<p>Signed in as <%= current_user.name %></p>
+<%= button_to "Sign out", session_path, method: :delete %>
+
+<p>
+  Filter:
+  <%= link_to "All", library_entries_path %> |
+  <%= link_to "Read", library_entries_path(filter: "read") %> |
+  <%= link_to "Not read yet", library_entries_path(filter: "not_read_yet") %>
+</p>
+
+<table>
+  <thead>
+    <tr><th>Title</th><th>Date Added</th><th>Status</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% if @entries.empty? %>
+      <tr><td colspan="4" class="empty-row">No books yet.</td></tr>
+    <% else %>
+      <% @entries.each do |entry| %>
+        <tr>
+          <td><%= link_to entry.book.title, book_path(entry.book) %></td>
+          <td><%= entry.date_added&.strftime("%B %d, %Y") %></td>
+          <td>
+            <%= button_to entry.status.humanize,
+                  toggle_status_library_entry_path(entry),
+                  method: :patch,
+                  class: "status-button #{entry.status}" %>
+          </td>
+          <td>
+            <%= button_to "Remove",
+                  remove_from_library_book_path(entry.book),
+                  method: :delete, class: "btn" %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

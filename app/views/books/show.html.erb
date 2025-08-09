@@ -1,0 +1,39 @@
+<h1><%= @book.title %></h1>
+<p><strong>Author:</strong> <%= @book.author %></p>
+<p><strong>Average rating:</strong> <%= @book.average_rating || "No ratings yet" %></p>
+<% if @book.respond_to?(:description) && @book.description.present? %>
+  <p><%= simple_format(@book.description) %></p>
+<% end %>
+
+<hr>
+<h3>Reviews</h3>
+<% if @reviews.any? %>
+  <ul>
+    <% @reviews.each do |rev| %>
+      <li>
+        <strong><%= rev.user.name %></strong> – <%= rev.rating %>/5
+        <div><%= simple_format(rev.body) %></div>
+        <% if logged_in? && rev.user == current_user %>
+          <%= button_to "Delete",
+                book_review_path(@book, rev),
+                method: :delete,
+                data: { turbo_confirm: "Delete this review?" } %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No reviews yet.</p>
+<% end %>
+
+<% if logged_in? %>
+  <hr>
+  <h4>Write a review</h4>
+  <%= form_with model: [@book, @review], local: true do |f| %>
+    <p><%= f.label :rating %><br><%= f.number_field :rating, in: 1..5 %></p>
+    <p><%= f.label :body, "Your review" %><br><%= f.text_area :body, rows: 5 %></p>
+    <%= f.submit "Post review" %>
+  <% end %>
+<% else %>
+  <p><%= link_to "Sign in", new_session_path %> to write a review.</p>
+<% end %>

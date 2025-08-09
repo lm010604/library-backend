@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to new_session_path, alert: "Please sign in first." unless logged_in?
+    unless logged_in?
+      session[:return_to] = request.fullpath
+      redirect_to new_session_path, alert: "Please sign in first."
+    end
   end
 end

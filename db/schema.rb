@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_09_065539) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_09_073514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,12 +22,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_065539) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.float "avg_rating"
+    t.index ["author"], name: "index_books_on_author"
+    t.index ["title"], name: "index_books_on_title"
   end
 
   create_table "library_entries", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "book_id", null: false
-    t.integer "status"
+    t.integer "status", default: 1, null: false
     t.date "date_added"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

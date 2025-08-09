@@ -1,0 +1,40 @@
+<div class="top-bar" style="display:flex; gap:8px; margin-bottom:12px;">
+  <%= link_to "← Back to Books", books_path, class: "back-button" %>
+  <%= link_to "My Library", library_entries_path, class: "btn" %>
+</div>
+
+<h1>My Reviews</h1>
+<p>Signed in as <%= current_user.name %></p>
+
+<% if @reviews.empty? %>
+  <p>You haven’t posted any reviews yet.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Rating</th>
+        <th>Review</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reviews.each do |rev| %>
+        <tr>
+          <td><%= link_to rev.book.title, book_path(rev.book) %></td>
+          <td><%= rev.rating %>/5</td>
+          <td><%= truncate(rev.body.to_s, length: 120) %></td>
+          <td><%= rev.created_at.strftime("%b %d, %Y") %></td>
+          <td>
+            <%= button_to "Delete",
+                  book_review_path(rev.book, rev),
+                  method: :delete,
+                  data: { turbo_confirm: "Delete this review?" },
+                  class: "btn" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

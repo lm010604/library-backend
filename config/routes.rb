@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
   root "books#index"
 
-  resources :books do
+  resources :books, only: [ :index, :show ] do
+    resources :reviews, only: [ :create, :destroy ]      # login required
     member do
-      patch :toggle_read
+      post   :add_to_library                            # login required
+      delete :remove_from_library                       # login required
     end
   end
 
-  resources :users, only: [ :new, :create ]
+  get "my/reviews", to: "reviews#index", as: :my_reviews
+
+  resources :library_entries, only: [ :index ] do
+    member { patch :toggle_status }                     # read <-> not_read_yet
+  end
+
+  resources :users,   only: [ :new, :create ]
   resource  :session, only: [ :new, :create, :destroy ]
 end

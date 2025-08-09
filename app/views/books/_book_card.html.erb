@@ -1,0 +1,22 @@
+<div class="book-card">
+  <h3><%= link_to book.title, book_path(book) %></h3>
+  <p class="byline"><%= book.author %></p>
+  <p class="rating"><strong><%= book.average_rating || "—" %></strong> / 5</p>
+
+  <div class="actions">
+    <%= link_to "View", book_path(book), class: "btn" %>
+    <% if logged_in? %>
+      <% if current_user.library_entries.exists?(book_id: book.id) %>
+        <%= button_to "Remove from My Library",
+              remove_from_library_book_path(book),
+              method: :delete, class: "btn" %>
+      <% else %>
+        <%= button_to "Add to My Library",
+              add_to_library_book_path(book),
+              method: :post, class: "btn" %>
+      <% end %>
+    <% else %>
+      <%= link_to "Sign in to save", new_session_path, class: "btn" %>
+    <% end %>
+  </div>
+</div>

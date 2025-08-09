@@ -63,3 +63,6 @@ group :test do
 end
 
 gem "bcrypt", "~> 3.1"
+
+# Gemfile
+gem "csv", "~> 3.3"

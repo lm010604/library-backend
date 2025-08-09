@@ -1,64 +1,34 @@
 class BooksController < ApplicationController
-  before_action :require_login
   def index
-  @books = current_user.books
-    if params[:filter].present?
-      case params[:filter]
-      when "read"
-        @books = @books.read
-      when "not_read_yet"
-        @books = @books.not_read_yet
-      end
+    @query = params[:q].to_s.strip
+    @books = if @query.blank?
+      Book.none
+    else
+      Book.where("title ILIKE :q OR author ILIKE :q", q: "%#{@query}%")
+          .order(created_at: :desc)
+          .limit(30)
     end
-    @books = @books.order(created_at: :desc)
   end
 
   def show
     @book = Book.find(params[:id])
+    @reviews = @book.reviews.includes(:user).order(created_at: :desc)
+    @review  = Review.new
   end
 
-  def new
-    @book = Book.new
-  end
+  before_action :require_login, only: [ :add_to_library, :remove_from_library ]
 
-  def create
-    @book = current_user.books.build(book_params)
-    if @book.save
-      redirect_to root_path, notice: "Saved to library!"
-    else
-      render :new, status: :unprocessable_entity
+  def add_to_library
+    book = Book.find(params[:id])
+    current_user.library_entries.find_or_create_by!(book:) do |entry|
+      entry.status ||= :not_read_yet
     end
+    redirect_to library_entries_path, notice: "Added to your library."
   end
 
-  def edit
-    @book = Book.find(params[:id])
-  end
-
-  def update
-    @book = Book.find(params[:id])
-    if @book.update(book_params)
-      redirect_to books_path, notice: "Updated"
-    else
-      Rails.logger.debug @book.errors.full_messages.inspect
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @book = Book.find(params[:id])
-    @book.destroy
-    redirect_to root_path, status: :see_other
-  end
-
-  def toggle_read
-    @book = current_user.books.find(params[:id])
-    new_status = @book.read == "read" ? :not_read_yet : :read
-    @book.update(read: new_status)
-    redirect_to books_path
-  end
-
-  private
-  def book_params
-    params.require(:book).permit(:title, :author, :pages, :read)
+  def remove_from_library
+    book = Book.find(params[:id])
+    current_user.library_entries.find_by(book:)&.destroy
+    redirect_back fallback_location: library_entries_path, notice: "Removed from your library."
   end
 end
