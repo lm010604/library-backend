@@ -1,24 +1,37 @@
-# README
+# Library RB
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repository contains a Ruby on Rails application. You can run the app with Docker Compose using the provided `docker-compose.yml`.
 
-Things you may want to cover:
+## Prerequisites
 
-* Ruby version
+- Docker and Docker Compose
+- Environment variables:
+  - `RAILS_MASTER_KEY`
+  - `POSTGRES_PASSWORD`
 
-* System dependencies
+Create a `.env` file in the project root and define these variables so Docker
+Compose can read them automatically:
 
-* Configuration
+```
+RAILS_MASTER_KEY=your_master_key
+POSTGRES_PASSWORD=choose_a_password
+```
 
-* Database creation
+## Running with Docker Compose
 
-* Database initialization
+Build and start the application and database services:
 
-* How to run the test suite
+```sh
+docker compose up --build
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+The Rails server will be accessible at `http://localhost:3000` and will connect to the bundled Postgres database container.
 
-* Deployment instructions
+## Tests
 
-* ...
+Run the test suite with:
+
+```sh
+bundle exec rake test
+```
+
