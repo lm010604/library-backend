@@ -35,3 +35,22 @@ Run the test suite with:
 bundle exec rake test
 ```
 
+## SETUP WITH DOCKER:
+
+```sh
+# From the project root, first run this to get the SECRET_KEY_BASE:
+docker compose run --rm web bundle exec rails secret
+
+# Copy and paste that output into the .env at SECRET_KEY_BASE=[PUT IT HERE]
+
+# Next, set a POSTGRES_PASSWORD to whatever you like.
+
+# Next, run the following
+docker compose build
+
+# Setup DB & run migrations
+docker compose run --rm web bin/rails db:prepare --trace
+
+# Put the project up
+docker compose up --build
+ ```
