@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_08_170601) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_09_065539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,12 +18,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_08_170601) do
     t.string "title"
     t.string "author"
     t.integer "pages"
-    t.integer "read"
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.float "avg_rating"
+  end
+
+  create_table "library_entries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
+    t.integer "status"
     t.date "date_added"
-    t.index ["user_id"], name: "index_books_on_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_library_entries_on_book_id"
+    t.index ["user_id"], name: "index_library_entries_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.text "body"
+    t.integer "rating"
+    t.bigint "user_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_reviews_on_book_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,5 +54,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_08_170601) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "books", "users"
+  add_foreign_key "library_entries", "books"
+  add_foreign_key "library_entries", "users"
+  add_foreign_key "reviews", "books"
+  add_foreign_key "reviews", "users"
 end
