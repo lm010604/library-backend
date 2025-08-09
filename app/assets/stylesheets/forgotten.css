@@ -319,3 +319,21 @@ html { scroll-behavior: smooth; }
   background: rgba(202,163,82,.08);
   border-radius: 6px;
 }
+
+.book-actions {
+  display: flex;
+  gap: 10px; /* space between buttons */
+}
+
+.book-actions .btn {
+  background-color: #7b4b25;
+  color: #f2e0c9;
+  padding: 8px 14px;
+  border: 1px solid #caa45d;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.book-actions .btn:hover {
+  background-color: #a1632e;
+}

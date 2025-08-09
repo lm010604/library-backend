@@ -3,7 +3,7 @@
   <p class="byline"><%= book.author %></p>
   <p class="rating"><strong><%= book.average_rating || "—" %></strong> / 5</p>
 
-  <div class="actions">
+  <div class="book-actions">
     <%= link_to "View", book_path(book), class: "btn" %>
     <% if logged_in? %>
       <% if current_user.library_entries.exists?(book_id: book.id) %>
