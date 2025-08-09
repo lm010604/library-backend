@@ -106,3 +106,10 @@ td form button {
 .back-button:hover {
   background-color: #333;
 }
+
+.book-card h3 a:visited,
+.nav a:visited,
+.back-button:visited {
+  color: var(--gold);
+}
+

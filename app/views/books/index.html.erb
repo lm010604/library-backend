@@ -1,25 +1,14 @@
-<h1>Find your next read</h1>
+<h1>Search the Stacks</h1>
 
-<div style="margin-bottom: 1rem;">
-  <% if logged_in? %>
-    <span>Signed in as <%= current_user.name %></span>
-    <%= button_to "Sign out", session_path, method: :delete %>
-    <%= link_to "My Library", library_entries_path, class: "btn" %>
-    <%= link_to "My Reviews", my_reviews_path, class: "btn" %>
-  <% else %>
-    <%= link_to "Sign in", new_session_path, class: "btn" %>
-    <%= link_to "Create account", new_user_path, class: "btn" %>
+<div class="search-wrap">
+  <%= form_with url: books_path, method: :get, local: true do %>
+    <%= text_field_tag :q, @query, placeholder: "Search by title or author" %>
+    <%= submit_tag "Search", class: "btn" %>
   <% end %>
 </div>
 
-<%= form_with url: books_path, method: :get, local: true do %>
-  <%= text_field_tag :q, @query, placeholder: "Search by title or author", style: "width: 320px" %>
-  <%= submit_tag "Search", class: "btn" %>
-<% end %>
-
 <% if @query.present? %>
-  <p><em>Showing <%= @books.size %> result(s) for “<%= @query %>”.</em></p>
-
+  <p class="muted">Showing <%= @books.size %> result(s) for “<%= @query %>”.</p>
   <% if @books.any? %>
     <div class="book-grid">
       <% @books.each do |book| %>
@@ -27,8 +16,8 @@
       <% end %>
     </div>
   <% else %>
-    <p>No matches. Try another keyword.</p>
+    <p class="muted">No matches. Try another keyword.</p>
   <% end %>
 <% else %>
-  <p>Type a title or author and hit Search.</p>
+  <p class="muted">Type a title or author and press Search.</p>
 <% end %>

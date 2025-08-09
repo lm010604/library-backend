@@ -1,9 +1,9 @@
-<div class="top-bar" style="display:flex; gap:8px; margin-bottom:12px;">
+<div class="top-bar">
   <%= link_to "← Back to Books", books_path, class: "back-button" %>
   <%= link_to "My Library", library_entries_path, class: "btn" %>
 </div>
-
 <h1>My Reviews</h1>
+
 <p>Signed in as <%= current_user.name %></p>
 
 <% if @reviews.empty? %>

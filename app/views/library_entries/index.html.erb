@@ -1,6 +1,6 @@
 <div class="top-bar">
-    <%= link_to "← Back to Books", books_path, class: "back-button" %>
-  </div>
+  <%= link_to "← Back to Books", books_path, class: "back-button" %>
+</div>
 <h1>My Library</h1>
 <p>Signed in as <%= current_user.name %></p>
 <%= button_to "Sign out", session_path, method: :delete %>
