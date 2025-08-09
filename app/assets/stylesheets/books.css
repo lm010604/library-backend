@@ -1,0 +1,82 @@
+/* Global layout */
+body {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  font-family: century-gothic, sans-serif;
+}
+
+.side-and-main {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+}
+
+/* Table styling */
+table {
+  margin-bottom: 50px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 1rem 1.8rem;
+  vertical-align: middle;
+}
+
+td {
+  /* Ensure cell borders stay consistent */
+  border: 1px solid black;
+}
+
+td form,
+td a {
+  margin: 0;
+  padding: 0;
+}
+
+td form button {
+  border: none;
+  outline: none;
+}
+
+/* Status button (read / not read yet) */
+.status-button {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.status-button[data-status="Read"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-button[data-status="Not read yet"] {
+  background-color: #999;
+  color: white;
+}
+
+/* General button style */
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: grey;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+}
+
+/* Action button colors */
+#edit-button {
+  background-color: blue;
+}
+
+#delete-button {
+  background-color: red;
+}

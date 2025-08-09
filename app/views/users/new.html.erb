@@ -1,0 +1,39 @@
+<h1>Create Account</h1>
+
+<%= form_with model: @user do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <p><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</p>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "Your name" %><br>
+    <%= form.text_field :name, placeholder: "First and last name" %><br>
+  </div>
+
+  <div>
+    <%= form.label :email %><br>
+    <%= form.email_field :email %><br>
+  </div>
+
+  <div>
+    <%= form.label :password %><br>
+    <%= form.password_field :password, placeholder: "At least 6 characters" %><br>
+  </div>
+    <%= form.label :password_confirmation,"Re-enter password" %><br>
+    <%= form.password_field :password_confirmation %><br>
+  <div>
+
+
+  <div>
+    <%= form.submit "Create Account" %>
+  </div>
+<% end %>
+
+

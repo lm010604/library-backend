@@ -1,0 +1,58 @@
+<% if logged_in? %>
+<h1>My Library</h1>
+    <p>Signed in as <%= current_user.name %> </p>
+    <%= button_to "Sign out", session_path, method: :delete %>
+    <div class="side-and-main">
+    <div class="side-bar">
+        <h3>Bookshelves</h3>
+        <%= link_to "All", books_path %><br>
+        <%= link_to "Read", books_path(filter: "read") %><br>
+        <%= link_to "Want to Read", books_path(filter: "not_read_yet")%>
+    </div>
+    <div class="main-content">
+        <%= link_to "New Book", new_book_path, class: "btn"%>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Shelves</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                <% if @books.length.zero?%>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">There are no books to show yet...</td>
+                    </tr>
+                <% else %>
+                <% @books.each do |book| %>
+                    <tr>
+                        <td><%= book.title %></td>
+                        <td><%= book.author %></td>
+                        <td><%= book.pages %></td>
+                        <td><%= button_to book.read.humanize, toggle_read_book_path(book), method: :patch, class: "status-button", data: { status: book.read.humanize } %></td>
+                        <td><%= book.date_added&.strftime("%B %d, %Y") %></td>
+                        <td style="display: flex; flex-direction: row; gap: 5px">
+                            <%= link_to "Edit", edit_book_path(book), class: "btn", id: "edit-button"%> 
+                            <%= link_to "Delete",
+                            book_path(book),
+                            data: { turbo_method: :delete, turbo_confirm: "Delete this book?" },
+                            class: "btn",
+                            id: "delete-button" %>
+                        </td>
+                    </tr>
+                <% end %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    </div>
+<% else %>
+    <button><%= link_to "Sign up with email", new_user_path %></button>
+     <p>Already a member? <%= link_to "Sign in", new_session_path %></p>
+  <% end %>
+

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  book: one
+  status: 1
+  date_added: 2025-08-09
+
+two:
+  user: two
+  book: two
+  status: 1
+  date_added: 2025-08-09

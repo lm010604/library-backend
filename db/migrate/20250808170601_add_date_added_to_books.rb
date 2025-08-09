@@ -1,0 +1,5 @@
+class AddDateAddedToBooks < ActiveRecord::Migration[8.0]
+  def change
+    add_column :books, :date_added, :date
+  end
+end
