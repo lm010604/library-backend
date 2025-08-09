@@ -9,32 +9,41 @@
 <% if @reviews.empty? %>
   <p>You haven’t posted any reviews yet.</p>
 <% else %>
-  <table>
+    <table class="reviews-table">
     <thead>
-      <tr>
+        <tr>
         <th>Book</th>
         <th>Rating</th>
         <th>Review</th>
         <th>Date</th>
         <th></th>
-      </tr>
+        </tr>
     </thead>
     <tbody>
-      <% @reviews.each do |rev| %>
+        <% @reviews.each do |review| %>
         <tr>
-          <td><%= link_to rev.book.title, book_path(rev.book) %></td>
-          <td><%= rev.rating %>/5</td>
-          <td><%= truncate(rev.body.to_s, length: 120) %></td>
-          <td><%= rev.created_at.strftime("%b %d, %Y") %></td>
-          <td>
-            <%= button_to "Delete",
-                  book_review_path(rev.book, rev),
-                  method: :delete,
-                  data: { turbo_confirm: "Delete this review?" },
-                  class: "btn" %>
-          </td>
+            <td><%= link_to review.book.title, review.book %></td>
+            <td><%= review.rating %>/5</td>
+            <td>
+            <% if review.body.length > 150 %>
+                <%= truncate(review.body, length: 150) %>
+                <%= link_to "Read more",
+                            book_path(review.book, anchor: "review-#{review.id}"),
+                            class: "read-more-link",
+                            data: { turbo: false } %>
+            <% else %>
+                <%= review.body %>
+            <% end %>
+            </td>
+            <td><%= review.created_at.strftime("%b %d, %Y") %></td>
+            <td>
+            <%= button_to "Delete", book_review_path(review.book, review),
+                    method: :delete,
+                    data: { turbo_confirm: "Delete this review?" },
+                    class: "btn btn--danger btn--sm" %>
+            </td>
         </tr>
-      <% end %>
+        <% end %>
     </tbody>
-  </table>
+    </table>
 <% end %>
