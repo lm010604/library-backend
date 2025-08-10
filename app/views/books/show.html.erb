@@ -8,7 +8,7 @@
 
   <hr class="rule">
 
-  <h3>Reviews</h3>
+  <h3 id="reviews">Reviews</h3>
   <% if @reviews.any? %>
     <div class="review-grid">
       <% @reviews.each do |review| %>
@@ -17,10 +17,10 @@
     </div>
     <div class="review-pagination top-bar">
       <% if @page.positive? %>
-        <%= link_to "Back", book_path(@book, page: @page - 1), class: "btn" %>
+        <%= link_to "Back", book_path(@book, page: @page - 1) + "#reviews", class: "btn" %>
       <% end %>
       <% if @has_next %>
-        <%= link_to "Next", book_path(@book, page: @page + 1), class: "btn" %>
+        <%= link_to "Next", book_path(@book, page: @page + 1) + "#reviews", class: "btn" %>
       <% end %>
     </div>
   <% else %>

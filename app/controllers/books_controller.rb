@@ -12,7 +12,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    per_page = 5
+    per_page = 6
     @page = params[:page].to_i
     offset = @page * per_page
     @reviews = @book.reviews.includes(:user, :review_likes)
