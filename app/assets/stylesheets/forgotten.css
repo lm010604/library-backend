@@ -364,15 +364,43 @@ html { scroll-behavior: smooth; }
 .review-card .like-section form{ margin:0 }
 .review-card .like-count{ color: var(--muted) }
 
+/* Library cards for mobile view */
+.library-cards{ display:none; margin-top:10px; }
+.library-card{ background: var(--panel); border: 1px solid var(--gold-deep); border-radius: 6px; padding: 12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04); margin-bottom:10px; }
+.library-card h3{ margin:0 0 6px }
+.library-card .byline{ color: var(--muted); margin:0 0 8px }
+.library-card .actions{ display:flex; gap:8px }
+
 @media (max-width: 600px){
   .header-inner{ flex-wrap:wrap; }
   .nav{ display:none; flex-direction:column; gap:8px; width:100%; margin-top:8px; }
   .nav.open{ display:flex; }
   .nav-toggle{ display:block; }
   .review-grid{ grid-template-columns:1fr; }
+
+  /* search form stacks vertically */
+  .search-wrap form{ display:flex; flex-direction:column; gap:8px; }
+  .search-wrap input[type="text"],
+  .search-wrap input[type="search"],
+  .search-wrap .btn{ width:100%; max-width:100%; }
+
+  /* swap library table for cards */
+  .library-table{ display:none; }
+  .library-cards{ display:block; }
+
+  /* smaller headings */
+  h1{ font-size:1.4rem; }
+  .book-show h1{ font-size:1.3rem; }
+
+  /* form labels above inputs */
+  .form-panel .field{ grid-template-columns:1fr; }
+  .form-panel label{ margin-bottom:4px; }
+
+  /* modal fits screen */
+  .modal-content{ width:100%; max-width:100%; }
 }
 
 .modal{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; padding:20px; }
 .modal.open{ display:flex }
-.modal-content{ background:var(--panel); border:1px solid var(--gold-deep); border-radius:6px; padding:20px; max-width:500px; max-height:80%; overflow:auto; }
+.modal-content{ background:var(--panel); border:1px solid var(--gold-deep); border-radius:6px; padding:20px; max-width:500px; max-height:80%; overflow:auto; box-sizing:border-box; }
 .modal-close{ background:none; border:none; float:right; font-size:16px; cursor:pointer; color:var(--ink); }
