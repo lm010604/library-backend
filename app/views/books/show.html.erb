@@ -10,25 +10,11 @@
 
   <h3>Reviews</h3>
   <% if @reviews.any? %>
-    <ul class="reviews">
-      <% @reviews.each do |rev| %>
-        <li class="review" id="review-<%= rev.id %>">
-          <div class="review-head">
-            <strong><%= rev.user.name %></strong> – <%= rev.rating %>/5
-          </div>
-          <div class="review-body"><%= simple_format(rev.body) %></div>
-          <% if logged_in? && rev.user == current_user %>
-            <div class="review-actions">
-              <%= button_to "Delete",
-                    book_review_path(@book, rev),
-                    method: :delete,
-                    data: { turbo_confirm: "Delete this review?" },
-                    class: "btn btn--danger btn--sm" %>
-            </div>
-          <% end %>
-        </li>
+    <div class="review-grid">
+      <% @reviews.each do |review| %>
+        <%= render "reviews/review_card", review: review, show_book: false %>
       <% end %>
-    </ul>
+    </div>
   <% else %>
     <p class="muted">No reviews yet.</p>
   <% end %>
