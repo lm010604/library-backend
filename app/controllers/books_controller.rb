@@ -20,7 +20,7 @@ class BooksController < ApplicationController
 
   def add_to_library
     book = Book.find(params[:id])
-    current_user.library_entries.find_or_create_by!(book:) do |entry|
+    current_user.library_entries.find_or_create_by!(book: book) do |entry|
       entry.status ||= :not_read_yet
     end
     redirect_to library_entries_path, notice: "Added to your library."
@@ -28,7 +28,7 @@ class BooksController < ApplicationController
 
   def remove_from_library
     book = Book.find(params[:id])
-    current_user.library_entries.find_by(book:)&.destroy
+    current_user.library_entries.find_by(book: book)&.destroy
     redirect_back fallback_location: library_entries_path, notice: "Removed from your library."
   end
 end
