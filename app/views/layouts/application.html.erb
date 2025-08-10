@@ -18,9 +18,10 @@
       <!-- banner + gold nav -->
       <div class="header">
         <div style="height:300px; background:url(<%= asset_path('banner.jpg') %>) center/cover no-repeat;"></div>
-        <div class="header-inner">
+        <div class="header-inner" data-controller="menu">
           <%= link_to raw('<span class="wordmark">Forgotten</span> Library'), root_path, class: "brand" %>
-          <nav class="nav">
+          <button class="nav-toggle" data-action="menu#toggle">&#9776;</button>
+          <nav class="nav" data-menu-target="menu">
             <%= link_to "Search", books_path %>
             <% if logged_in? %>
               <%= link_to "My Library", library_entries_path %>

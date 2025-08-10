@@ -15,6 +15,14 @@
         <%= render "reviews/review_card", review: review, show_book: false %>
       <% end %>
     </div>
+    <div class="review-pagination top-bar">
+      <% if @page.positive? %>
+        <%= link_to "Back", book_path(@book, page: @page - 1), class: "btn" %>
+      <% end %>
+      <% if @has_next %>
+        <%= link_to "Next", book_path(@book, page: @page + 1), class: "btn" %>
+      <% end %>
+    </div>
   <% else %>
     <p class="muted">No reviews yet.</p>
   <% end %>

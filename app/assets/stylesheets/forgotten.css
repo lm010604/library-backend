@@ -74,6 +74,16 @@ body{
 }
 .nav a:hover, .btn:hover{ filter: brightness(1.06) }
 
+.nav-toggle{
+  display:none;
+  background:none;
+  border:none;
+  font-size:24px;
+  color:var(--ink);
+  cursor:pointer;
+  margin-left:auto;
+}
+
 /* secondary pill button (back etc.) */
 .back-button{
   display:inline-block;
@@ -353,6 +363,14 @@ html { scroll-behavior: smooth; }
 .review-card .like-section{ display:flex; align-items:center; gap:8px; margin-top:8px }
 .review-card .like-section form{ margin:0 }
 .review-card .like-count{ color: var(--muted) }
+
+@media (max-width: 600px){
+  .header-inner{ flex-wrap:wrap; }
+  .nav{ display:none; flex-direction:column; gap:8px; width:100%; margin-top:8px; }
+  .nav.open{ display:flex; }
+  .nav-toggle{ display:block; }
+  .review-grid{ grid-template-columns:1fr; }
+}
 
 .modal{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; padding:20px; }
 .modal.open{ display:flex }
