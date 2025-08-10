@@ -3,7 +3,7 @@
 </div>
 <h1>My Library</h1>
 <p>Signed in as <%= current_user.name %></p>
-<%# <%= button_to "Sign out", session_path, method: :delete %> 
+<%# <%= button_to "Sign out", session_path, method: :delete %>
 
 <p>
   Filter:
@@ -11,15 +11,14 @@
   <%= link_to "Read", library_entries_path(filter: "read") %> |
   <%= link_to "Not read yet", library_entries_path(filter: "not_read_yet") %>
 </p>
-
-<table>
-  <thead>
-    <tr><th>Title</th><th>Date Added</th><th>Status</th><th>Actions</th></tr>
-  </thead>
-  <tbody>
-    <% if @entries.empty? %>
-      <tr><td colspan="4" class="empty-row">No books yet.</td></tr>
-    <% else %>
+<% if @entries.empty? %>
+  <p class="empty-row">No books yet.</p>
+<% else %>
+  <table class="library-table">
+    <thead>
+      <tr><th>Title</th><th>Date Added</th><th>Status</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
       <% @entries.each do |entry| %>
         <tr>
           <td><%= link_to entry.book.title, book_path(entry.book) %></td>
@@ -37,6 +36,24 @@
           </td>
         </tr>
       <% end %>
+    </tbody>
+  </table>
+
+  <div class="library-cards">
+    <% @entries.each do |entry| %>
+      <div class="library-card">
+        <h3><%= link_to entry.book.title, book_path(entry.book) %></h3>
+        <p class="byline"><%= entry.date_added&.strftime("%B %d, %Y") %></p>
+        <div class="actions">
+          <%= button_to entry.status.humanize,
+                toggle_status_library_entry_path(entry),
+                method: :patch,
+                class: "status-button #{entry.status}" %>
+          <%= button_to "Remove",
+                remove_from_library_book_path(entry.book),
+                method: :delete, class: "btn" %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% end %>
