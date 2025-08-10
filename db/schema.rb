@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_09_073514) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_09_090100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,8 +44,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_073514) do
     t.bigint "book_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "review_likes_count", default: 0, null: false
     t.index ["book_id"], name: "index_reviews_on_book_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "review_likes", force: :cascade do |t|
+    t.bigint "review_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id", "user_id"], name: "index_review_likes_on_review_id_and_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,4 +69,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_073514) do
   add_foreign_key "library_entries", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
+  add_foreign_key "review_likes", "reviews"
+  add_foreign_key "review_likes", "users"
 end

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   get "my/reviews", to: "reviews#index", as: :my_reviews
 
+  resources :reviews, only: [] do
+    resource :like, only: [ :create, :destroy ], controller: "review_likes"
+  end
+
   resources :library_entries, only: [ :index ] do
     member { patch :toggle_status }                     # read <-> not_read_yet
   end

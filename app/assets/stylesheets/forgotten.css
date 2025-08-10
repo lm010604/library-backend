@@ -267,12 +267,8 @@ label{ color: var(--muted) }
   margin: 14px 0;
 }
 
-.reviews { list-style: none; margin: 0; padding: 0 }
-.review { margin: 10px 0 14px; padding: 0 }
-.review-head { margin-bottom: 6px }
 .review-body { margin: 0 0 8px }
 
-.review-actions { margin-top: 4px }
 .btn--sm { padding: 6px 10px; font-size: 13px }
 
 /* form tweaks reused from earlier forms pack */
@@ -313,7 +309,7 @@ label{ color: var(--muted) }
 html { scroll-behavior: smooth; }
 
 /* briefly highlight the anchored review */
-.review:target {
+.review-card:target {
   outline: 2px solid var(--gold);
   outline-offset: 4px;
   background: rgba(202,163,82,.08);
@@ -337,3 +333,28 @@ html { scroll-behavior: smooth; }
 .book-actions .btn:hover {
   background-color: #a1632e;
 }
+
+.review-grid{
+  display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px; margin-top: 10px;
+}
+.review-card{
+  background: var(--panel);
+  border: 1px solid var(--gold-deep);
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+.review-card h3{ margin:0 0 6px }
+.review-card h3 a{ color: var(--ink); text-decoration:none; border-bottom: 1px dotted var(--gold); padding-bottom: 2px; }
+.review-card h3 a:hover{ color: var(--gold) }
+.review-card .rating{ color: var(--gold); margin:0 0 8px }
+.review-card .date{ color: var(--muted); margin-top:8px }
+.review-card .like-section{ display:flex; align-items:center; gap:8px; margin-top:8px }
+.review-card .like-section form{ margin:0 }
+.review-card .like-count{ color: var(--muted) }
+
+.modal{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; padding:20px; }
+.modal.open{ display:flex }
+.modal-content{ background:var(--panel); border:1px solid var(--gold-deep); border-radius:6px; padding:20px; max-width:500px; max-height:80%; overflow:auto; }
+.modal-close{ background:none; border:none; float:right; font-size:16px; cursor:pointer; color:var(--ink); }

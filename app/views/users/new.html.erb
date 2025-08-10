@@ -15,7 +15,7 @@
 
     <div class="field">
       <%= form.label :name, "Your name" %>
-      <%= form.text_field :name, placeholder: "First and last name" %>
+      <%= form.text_field :name, placeholder: "First and last name", pattern: "[A-Za-z\\s]+" %>
     </div>
 
     <div class="field">

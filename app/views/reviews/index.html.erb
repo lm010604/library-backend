@@ -9,41 +9,9 @@
 <% if @reviews.empty? %>
   <p>You haven’t posted any reviews yet.</p>
 <% else %>
-    <table class="reviews-table">
-    <thead>
-        <tr>
-        <th>Book</th>
-        <th>Rating</th>
-        <th>Review</th>
-        <th>Date</th>
-        <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @reviews.each do |review| %>
-        <tr>
-            <td><%= link_to review.book.title, review.book %></td>
-            <td><%= review.rating %>/5</td>
-            <td>
-            <% if review.body.length > 150 %>
-                <%= truncate(review.body, length: 150) %>
-                <%= link_to "Read more",
-                            book_path(review.book, anchor: "review-#{review.id}"),
-                            class: "read-more-link",
-                            data: { turbo: false } %>
-            <% else %>
-                <%= review.body %>
-            <% end %>
-            </td>
-            <td><%= review.created_at.strftime("%b %d, %Y") %></td>
-            <td>
-            <%= button_to "Delete", book_review_path(review.book, review),
-                    method: :delete,
-                    data: { turbo_confirm: "Delete this review?" },
-                    class: "btn btn--danger btn--sm" %>
-            </td>
-        </tr>
-        <% end %>
-    </tbody>
-    </table>
+  <div class="review-grid">
+    <% @reviews.each do |review| %>
+      <%= render "review_card", review: review %>
+    <% end %>
+  </div>
 <% end %>

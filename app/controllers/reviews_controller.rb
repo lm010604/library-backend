@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = current_user.reviews
-                           .includes(:book)
+                           .includes(:book, :review_likes)
                            .order(created_at: :desc)
   end
 
@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to @book, notice: "Review posted."
     else
-      @reviews = @book.reviews.includes(:user).order(created_at: :desc)
+      @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
       render "books/show", status: :unprocessable_entity
     end
   end

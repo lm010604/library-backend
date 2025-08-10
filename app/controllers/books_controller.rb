@@ -12,7 +12,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    @reviews = @book.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
     @review  = Review.new
   end
 
