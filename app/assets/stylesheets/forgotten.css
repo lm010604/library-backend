@@ -725,8 +725,7 @@ html {
   color: var(--gold);
 }
 
-.star:hover,
-.star:hover ~ .star {
+.star.hover {
   color: var(--gold-hover);
 }
 
