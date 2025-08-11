@@ -15,6 +15,7 @@
   --gold: #caa352;
   /* accent */
   --gold-deep: #9b7432;
+  --gold-hover: #dcb15f;
   --chip: #2a100c;
   /* little chips/badges */
   --danger: #8e2b1e;
@@ -521,6 +522,9 @@ html {
 }
 
 .review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background: var(--panel);
   border: 1px solid var(--gold-deep);
   border-radius: 6px;
@@ -550,14 +554,15 @@ html {
 
 .review-card .date {
   color: var(--muted);
-  margin-top: 8px
+  margin-top: 8px;
 }
 
 .review-card .like-section {
+  margin-top: auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  margin-top: 8px
+  padding-top: 8px;
 }
 
 .review-card .like-section form {
@@ -566,6 +571,18 @@ html {
 
 .review-card .like-count {
   color: var(--muted)
+}
+
+.see-more-link {
+  margin-left: 4px;
+  color: var(--gold);
+  text-decoration: underline;
+  font-size: 0.95em;
+  cursor: pointer;
+}
+
+.see-more-link:hover {
+  color: var(--gold-deep);
 }
 
 /* Library cards for mobile view */

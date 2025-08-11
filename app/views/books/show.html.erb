@@ -17,7 +17,38 @@
               method: :post, class: "btn" %>
     <% end %>
   <% end %>
+  <hr class="rule">
+  <% if logged_in? %>
+    <h3>Write a review</h3>
+    <%= form_with model: [@book, @review], local: true, html: { class: "form-panel" } do |f| %>
+      <div class="field">
+        <%= f.label :rating %>
+        <div data-controller="rating">
+          <%= f.hidden_field :rating, value: 3, data: { rating_target: "input" } %>
+          <div class="star-rating" data-rating-target="stars">
+            <% (1..5).each do |star| %>
+              <span
+                class="star"
+                data-action="click->rating#set mouseover->rating#hover mouseout->rating#resetHover"
+                data-rating-value="<%= star %>"
+              >★</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
 
+      <div class="field field--full">
+        <%= f.label :body, "Your review" %>
+        <%= f.text_area :body, rows: 6, placeholder: "What did you think?" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Post review" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="muted"><%= link_to "Sign in", new_session_path %> to write a review.</p>
+  <% end %>
   <hr class="rule">
 
   <h3 id="reviews">Reviews</h3>
@@ -37,37 +68,5 @@
     </div>
   <% else %>
     <p class="muted">No reviews yet.</p>
-  <% end %>
-
-  <hr class="rule">
-
-  <% if logged_in? %>
-    <h3>Write a review</h3>
-    <%= form_with model: [@book, @review], local: true, html: { class: "form-panel" } do |f| %>
-      <div class="field">
-        <%= f.label :rating %>
-        <%= f.hidden_field :rating, value: 3, data: { rating_target: "input" } %>
-        <div class="star-rating" data-controller="rating" data-rating-target="stars">
-          <% (1..5).each do |star| %>
-            <span
-              class="star"
-              data-action="click->rating#set mouseover->rating#hover mouseout->rating#resetHover"
-              data-rating-value="<%= star %>"
-            >★</span>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="field field--full">
-        <%= f.label :body, "Your review" %>
-        <%= f.text_area :body, rows: 6, placeholder: "What did you think?" %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit "Post review" %>
-      </div>
-    <% end %>
-  <% else %>
-    <p class="muted"><%= link_to "Sign in", new_session_path %> to write a review.</p>
   <% end %>
 </div>

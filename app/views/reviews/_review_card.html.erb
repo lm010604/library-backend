@@ -1,21 +1,42 @@
 <% show_book = local_assigns.fetch(:show_book, true) %>
 <% sanitized_body = sanitize(review.body, tags: []) %>
+
 <div class="review-card" data-controller="review-modal" id="review-<%= review.id %>">
+  <!-- Header Row: Date + Delete Button -->
+  <div class="review-header" style="display: flex; align-items: center;">
+    <p class="date" style="margin: 0;"><%= review.created_at.strftime("%b %d, %Y") %></p>
+    <% if review.user == current_user %>
+      <div style="margin-left: auto;">
+        <%= button_to "Delete", book_review_path(review.book, review),
+              method: :delete,
+              data: { turbo_confirm: "Delete this review?" },
+              class: "btn btn--danger btn--sm" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Title or Reviewer Name -->
   <% if show_book %>
     <h3><%= link_to review.book.title, review.book %></h3>
   <% else %>
     <h3><%= review.user.name %></h3>
   <% end %>
+
+  <!-- Rating -->
   <p class="rating"><strong><%= review.rating %></strong> / 5</p>
+
+  <!-- Review Body with Inline "See more" -->
   <p class="review-body">
     <% if sanitized_body.length > 150 %>
-      <%= truncate(sanitized_body, length: 150) %>
+      <%= truncate(sanitized_body, length: 150, omission: '...') %>
+      <a href="#" class="see-more-link" data-action="review-modal#open">See more</a>
     <% else %>
       <%= sanitized_body %>
     <% end %>
   </p>
+
+  <!-- Modal for Full Review -->
   <% if sanitized_body.length > 150 %>
-    <button class="btn btn--sm see-more-btn" data-action="review-modal#open">See more</button>
     <div class="modal" data-review-modal-target="modal">
       <div class="modal-content">
         <button class="modal-close" data-action="review-modal#close">Close</button>
@@ -23,6 +44,8 @@
       </div>
     </div>
   <% end %>
+
+  <!-- Like Section -->
   <div class="like-section">
     <span class="like-count"><%= pluralize(review.review_likes.size, 'like') %></span>
     <% if logged_in? && review.user != current_user %>
@@ -33,11 +56,4 @@
       <% end %>
     <% end %>
   </div>
-  <p class="date"><%= review.created_at.strftime("%b %d, %Y") %></p>
-  <% if review.user == current_user %>
-    <%= button_to "Delete", book_review_path(review.book, review),
-          method: :delete,
-          data: { turbo_confirm: "Delete this review?" },
-          class: "btn btn--danger btn--sm" %>
-  <% end %>
 </div>
