@@ -6,6 +6,18 @@
     <p><%= simple_format(@book.description) %></p>
   <% end %>
 
+  <% if logged_in? %>
+    <% if current_user.library_entries.exists?(book_id: @book.id) %>
+       <%= button_to "Remove from My Library",
+              remove_from_library_book_path(@book),
+              method: :delete, class: "btn" %>
+    <% else %>
+      <%= button_to "Add to My Library",
+              add_to_library_book_path(@book),
+              method: :post, class: "btn" %>
+    <% end %>
+  <% end %>
+
   <hr class="rule">
 
   <h3 id="reviews">Reviews</h3>
@@ -34,7 +46,16 @@
     <%= form_with model: [@book, @review], local: true, html: { class: "form-panel" } do |f| %>
       <div class="field">
         <%= f.label :rating %>
-        <%= f.number_field :rating, in: 1..5, class: "input-narrow" %>
+        <%= f.hidden_field :rating, value: 3, data: { rating_target: "input" } %>
+        <div class="star-rating" data-controller="rating" data-rating-target="stars">
+          <% (1..5).each do |star| %>
+            <span
+              class="star"
+              data-action="click->rating#set mouseover->rating#hover mouseout->rating#resetHover"
+              data-rating-value="<%= star %>"
+            >★</span>
+          <% end %>
+        </div>
       </div>
 
       <div class="field field--full">
