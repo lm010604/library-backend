@@ -1,6 +1,11 @@
 <div class="book-card">
   <h3><%= link_to book.title, book_path(book) %></h3>
   <p class="byline"><%= book.author %></p>
+  <% if book.image_url.present? %>
+    <%= image_tag book.image_url, alt: "#{book.title} cover", class: "book-cover" %>
+  <% else %>
+    <p>No cover image available.</p>
+  <% end %>
   <p class="rating"><strong><%= book.average_rating || "—" %></strong> / 5</p>
 
   <div class="book-actions">

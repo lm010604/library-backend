@@ -67,3 +67,9 @@ gem "bcrypt", "~> 3.1"
 
 # Gemfile
 gem "csv", "~> 3.3"
+
+gem "httparty"
+
+gem "ruby-progressbar"
+
+gem "dotenv-rails", groups: [ :development, :test ]

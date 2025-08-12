@@ -1,22 +1,38 @@
 <div class="book-show">
   <h1><%= @book.title %></h1>
-  <p><strong>Author:</strong> <%= @book.author %></p>
-  <p><strong>Average rating:</strong> <%= @book.average_rating || "No ratings yet" %></p>
-  <% if @book.description.present? %>
-    <p><%= simple_format(@book.description) %></p>
-  <% end %>
+  <div class="book-details">
+    <p><strong>Author:</strong> <%= @book.author %></p>
+    <p><strong>Category:</strong> <%= @book.category %></p>
+    <p><strong>Average rating:</strong> <%= @book.average_rating || "No ratings yet" %></p>
+  </div>
+  <div class="cover-image-and-description">
+    <div class="book-cover">
+      <% if @book.image_url.present? %>
+        <%= image_tag @book.image_url, alt: "#{@book.title} cover", class: "book-cover" %>
+      <% else %>
+        <p>No cover image available.</p>
+      <% end %>
+    </div>
+    <div class="description-and-button">
+      <% if @description.present? %>
+        <p><%= @description %></p>
+      <% else %>
+        <p>No description available.</p>
+      <% end %>
+      <% if logged_in? %>
+        <% if current_user.library_entries.exists?(book_id: @book.id) %>
+          <%= button_to "Remove from My Library",
+                  remove_from_library_book_path(@book),
+                  method: :delete, class: "btn" %>
+        <% else %>
+          <%= button_to "Add to My Library",
+                  add_to_library_book_path(@book),
+                  method: :post, class: "btn" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
-  <% if logged_in? %>
-    <% if current_user.library_entries.exists?(book_id: @book.id) %>
-       <%= button_to "Remove from My Library",
-              remove_from_library_book_path(@book),
-              method: :delete, class: "btn" %>
-    <% else %>
-      <%= button_to "Add to My Library",
-              add_to_library_book_path(@book),
-              method: :post, class: "btn" %>
-    <% end %>
-  <% end %>
   <hr class="rule">
   <% if logged_in? %>
     <h3>Write a review</h3>

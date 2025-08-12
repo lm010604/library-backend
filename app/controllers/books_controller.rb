@@ -12,6 +12,11 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    if @book.description.blank?
+      description = GoogleBooksLookup.description_for(@book)
+      @book.update(description: description) if description.present?
+    end
+    @description = @book.description
     per_page = 6
     @page = params[:page].to_i
     offset = @page * per_page

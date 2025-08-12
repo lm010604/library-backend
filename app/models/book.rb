@@ -5,7 +5,6 @@ class Book < ApplicationRecord
 
   validates :title,  presence: true
   validates :author, presence: true
-  validates :pages,  presence: true
 
   def average_rating
     reviews.average(:rating)&.round(1)
