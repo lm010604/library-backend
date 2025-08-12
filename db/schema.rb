@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_11_154931) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_12_075816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,9 +22,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_154931) do
     t.text "description"
     t.float "avg_rating"
     t.string "image_url"
-    t.string "category"
+    t.bigint "category_id"
     t.index ["author"], name: "index_books_on_author"
+    t.index ["category_id"], name: "index_books_on_category_id"
     t.index ["title"], name: "index_books_on_title"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "library_entries", force: :cascade do |t|
@@ -44,6 +51,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_154931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["review_id", "user_id"], name: "index_review_likes_on_review_id_and_user_id", unique: true
+    t.index ["review_id"], name: "index_review_likes_on_review_id"
+    t.index ["user_id"], name: "index_review_likes_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -58,6 +67,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_154931) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "user_categories", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_user_categories_on_category_id"
+    t.index ["user_id"], name: "index_user_categories_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -66,10 +84,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_154931) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "books", "categories"
   add_foreign_key "library_entries", "books"
   add_foreign_key "library_entries", "users"
   add_foreign_key "review_likes", "reviews"
   add_foreign_key "review_likes", "users"
   add_foreign_key "reviews", "books"
   add_foreign_key "reviews", "users"
+  add_foreign_key "user_categories", "categories"
+  add_foreign_key "user_categories", "users"
 end

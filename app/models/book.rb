@@ -3,6 +3,8 @@ class Book < ApplicationRecord
   has_many :library_entries, dependent: :destroy
   has_many :owners, through: :library_entries, source: :user
 
+  belongs_to :category
+
   validates :title,  presence: true
   validates :author, presence: true
 

@@ -8,12 +8,12 @@ namespace :books do
 
     CSV.foreach(path, headers: true) do |row|
       next if Book.exists?(title: row["title"], author: row["author"])
-
+      category = Category.find_or_create_by(name: row["category"].strip)
       book = Book.new(
         title:      row["title"],
         author:     row["author"],
         image_url:  row["image_url"],
-        category:   row["category"]
+        category:   category.id
       )
 
       unless book.save

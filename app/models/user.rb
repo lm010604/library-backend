@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :review_likes, dependent: :destroy
   has_many :liked_reviews, through: :review_likes, source: :review
+  has_many :user_categories
+  has_many :favorite_categories, through: :user_categories, source: :category
 
   validates :password, length: { minimum: 6 }, if: -> { password.present? }
   validates :name,  presence: true,
