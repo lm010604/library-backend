@@ -8,6 +8,9 @@ class BooksController < ApplicationController
           .order(created_at: :desc)
           .limit(30)
     end
+    @books.each do |book|
+      EnrichBookJob.perform_later(book.id) unless book.enriched?
+    end
     if logged_in?
       @personalized_sections = current_user.categories.includes(:books).map do |category|
         {
@@ -20,10 +23,8 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    if @book.description.blank?
-      description = GoogleBooksLookup.description_for(@book)
-      @book.update(description: description) if description.present?
-    end
+    enrichment = GoogleBooksLookup.enrich(@book)
+    @book.update(enrichment.compact) if enrichment.present?
     @description = @book.description
     per_page = 6
     @page = params[:page].to_i

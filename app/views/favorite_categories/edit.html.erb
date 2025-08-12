@@ -1,0 +1,24 @@
+<div class="auth-page">
+  <h1>Select Your Favorite Categories</h1>
+
+  <%= form_with model: @user, url: favorite_categories_path, method: :patch, html: { class: "form-panel" } do |form| %>
+    <div data-controller="category-selector" data-selected-ids="<%= @user.category_ids.join(',') %>">
+      <% Category.all.each do |category| %>
+        <%= button_tag category.name,
+            type: "button",
+            class: "category-button",
+            data: {
+              action: "click->category-selector#toggle",
+              category_id: category.id,
+              category_selector_target: "button"
+            } %>
+      <% end %>
+      <div id="selected-categories" data-category-selector-target="input"></div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Save Preferences" %>
+      <%= link_to "Skip", root_path, class: "btn" %>
+    </div>
+  <% end %>
+</div>

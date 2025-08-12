@@ -16,11 +16,13 @@ Rails.application.routes.draw do
   end
 
   resources :library_entries, only: [ :index ] do
-    member { patch :toggle_status }                     # read <-> not_read_yet
+    member { patch :toggle_status }
   end
 
   resources :users,   only: [ :new, :create ]
   get   "profile", to: "profiles#edit", as: :profile
   patch "profile", to: "profiles#update"
-  resource  :session, only: [ :new, :create, :destroy ]
+  resource :session, only: [ :new, :create, :destroy ]
+
+  resource :favorite_categories, only: [ :edit, :update ]
 end

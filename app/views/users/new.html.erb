@@ -33,23 +33,10 @@
       <%= form.password_field :password_confirmation %>
     </div>
 
-    <h3>Select Your Favorite Categories</h3>
-    <div data-controller="category-selector">
-      <% Category.all.each do |category| %>
-        <%= button_tag category.name,
-            type: "button",
-            class: "category-button",
-            data: {
-              action: "click->category-selector#toggle",
-              category_id: category.id,
-              category_selector_target: "button"
-            } %>
-      <% end %>
-      <div id="selected-categories" data-category-selector-target="input"></div>
-    </div>
+
 
     <div class="actions">
-      <%= form.submit "Create Account" %>
+      <%= form.submit "Create Account", notice: "Welcome!" %>
     </div>
   <% end %>
 </div>

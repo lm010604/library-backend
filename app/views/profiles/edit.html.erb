@@ -33,7 +33,23 @@
       <%= form.password_field :password_confirmation %>
     </div>
 
-    <h3>Select Your Favorite Categories</h3>
+    <div class="actions">
+      <%= form.submit "Update Profile" %>
+    </div>
+  <% end %>
+
+  <%= form_with model: @user, url: profile_path, html: { class: "form-panel" } do |form| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <p><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</p>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <h3>My Favorite Categories</h3>
     <div data-controller="category-selector" data-selected-ids="<%= @user.category_ids.join(',') %>">
       <% Category.all.each do |category| %>
         <%= button_tag category.name,
@@ -47,9 +63,8 @@
       <% end %>
       <div id="selected-categories" data-category-selector-target="input"></div>
     </div>
-
     <div class="actions">
-      <%= form.submit "Update Profile" %>
+      <%= form.submit "Update Favorite Categories" %>
     </div>
   <% end %>
 </div>
