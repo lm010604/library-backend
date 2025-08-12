@@ -70,7 +70,7 @@ namespace :books do
         category_id = category_id_by_name[cat_name]
 
         if category_id.nil? && cat_name.present?
-          Category.insert_all([{ name: cat_name }], unique_by: :index_categories_on_name, record_timestamps: true)
+          Category.insert_all([ { name: cat_name } ], unique_by: :index_categories_on_name, record_timestamps: true)
           category_id = Category.where(name: cat_name).pick(:id)
           category_id_by_name[cat_name] = category_id if category_id
         end
@@ -110,7 +110,7 @@ def upsert_books_batch!(rows)
   # Last occurrence wins.
   deduped = {}
   rows.each do |r|
-    deduped[[r[:title], r[:author]]] = r
+    deduped[[ r[:title], r[:author] ]] = r
   end
   rows = deduped.values
 
@@ -119,7 +119,7 @@ def upsert_books_batch!(rows)
       :index_books_on_title_and_author
     else
       idx = ActiveRecord::Base.connection.indexes(:books).find { |i|
-        i.unique && (i.columns == ["title", "author"] || i.columns == ["author", "title"])
+        i.unique && (i.columns == [ "title", "author" ] || i.columns == [ "author", "title" ])
       }
       raise "Unique index on [:title, :author] is required" unless idx
       idx.name.to_sym
@@ -128,7 +128,7 @@ def upsert_books_batch!(rows)
   Book.upsert_all(
     rows,
     unique_by: idx_name,
-    update_only: [:image_url, :category_id],
+    update_only: [ :image_url, :category_id ],
     record_timestamps: true
   )
 
