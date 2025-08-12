@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :users,   only: [ :new, :create ]
+  get   "profile", to: "profiles#edit", as: :profile
+  patch "profile", to: "profiles#update"
   resource  :session, only: [ :new, :create, :destroy ]
 end

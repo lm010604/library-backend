@@ -4,7 +4,15 @@ export default class extends Controller {
   static targets = ["button", "input"]
 
   connect() {
-    this.selectedIds = []
+    this.selectedIds = (this.element.dataset.selectedIds || "")
+      .split(",")
+      .filter(id => id.length > 0)
+    this.buttonTargets.forEach(button => {
+      if (this.selectedIds.includes(button.dataset.categoryId)) {
+        button.classList.add("selected")
+      }
+    })
+    this.syncInput()
   }
 
   toggle(event) {
