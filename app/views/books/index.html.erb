@@ -21,3 +21,17 @@
 <% else %>
   <p class="muted">Type a title or author and press Search.</p>
 <% end %>
+
+<% if logged_in? && @personalized_sections.present? %>
+  <h2>Your Favorite Categories</h2>
+
+  <% @personalized_sections.each do |section| %>
+    <h3><%= section[:category].name %></h3>
+    <div class="book-grid">
+      <% section[:books].each do |book| %>
+          <%= render "book_card", book: book %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+

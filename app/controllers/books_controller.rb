@@ -8,6 +8,14 @@ class BooksController < ApplicationController
           .order(created_at: :desc)
           .limit(30)
     end
+    if logged_in?
+      @personalized_sections = current_user.categories.includes(:books).map do |category|
+        {
+          category: category,
+          books: category.books.limit(6)
+        }
+      end
+    end
   end
 
   def show

@@ -1,12 +1,18 @@
 <div class="book-card">
-  <h3><%= link_to book.title, book_path(book) %></h3>
-  <p class="byline"><%= book.author %></p>
-  <% if book.image_url.present? %>
-    <%= image_tag book.image_url, alt: "#{book.title} cover", class: "book-cover" %>
-  <% else %>
-    <p>No cover image available.</p>
-  <% end %>
-  <p class="rating"><strong><%= book.average_rating || "—" %></strong> / 5</p>
+  <div class="book-content">
+    <h3>
+      <%= link_to book_path(book) do %>
+        <span class="truncate-title" title="<%= book.title %>"><%= book.title %></span>
+      <% end %>
+    </h3>
+    <p class="byline"><%= book.author %></p>
+    <% if book.image_url.present? %>
+      <%= image_tag book.image_url, alt: "#{book.title} cover", class: "book-card-image" %>
+    <% else %>
+      <p>No cover image available.</p>
+    <% end %>
+    <p class="rating"><strong><%= book.average_rating || "—" %></strong> / 5</p>
+  </div>
 
   <div class="book-actions">
     <%= link_to "View", book_path(book), class: "btn" %>

@@ -59,6 +59,19 @@ td form button {
   color: white;
 }
 
+
+.category-button {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.category-button.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
 /* General button style */
 .btn {
   display: inline-block;
