@@ -1,4 +1,3 @@
-/* ===== Forgotten-style brown/gold theme ===== */
 :root {
   --bg: #4b2019;
   /* page background */
@@ -27,7 +26,6 @@
   }
 }
 
-/* page background like the site (center column + side bands) */
 html,
 body {
   height: 100%
@@ -41,14 +39,12 @@ body {
   color: var(--ink);
 }
 
-/* container mimics narrow blog column */
 .container {
   max-width: 980px;
   margin: 0 auto;
   padding: 0 18px 48px;
 }
 
-/* header banner */
 .header {
   margin: 18px auto 10px;
   background: var(--panel);
@@ -66,7 +62,6 @@ body {
   background: linear-gradient(180deg, #6b3527, #54271d 70%, #4b231a);
 }
 
-/* site title with gold emboss */
 .brand {
   font-size: 28px;
   letter-spacing: .6px;
@@ -80,7 +75,6 @@ body {
   text-shadow: 0 1px 0 #5b3f1a, 0 0 6px rgba(202, 163, 82, .25);
 }
 
-/* gold nav like tabs */
 .nav {
   display: flex;
   gap: 8px
@@ -105,7 +99,6 @@ body {
   filter: brightness(1.06)
 }
 
-/* profile dropdown */
 .profile-menu-wrapper {
   position: relative;
 }
@@ -148,7 +141,6 @@ body {
   margin-left: auto;
 }
 
-/* secondary pill button (back etc.) */
 .back-button {
   display: inline-block;
   padding: 6px 10px;
@@ -159,7 +151,6 @@ body {
   text-decoration: none;
 }
 
-/* notice/alert boxes with gold edges */
 .notice,
 .alert {
   margin: 12px 0;
@@ -181,7 +172,6 @@ body {
   border-color: #7b3b3e
 }
 
-/* search area */
 .search-wrap {
   margin: 14px 0
 }
@@ -207,7 +197,6 @@ input::placeholder {
   color: #d2b992
 }
 
-/* card/grid results off the table layout */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -225,7 +214,6 @@ input::placeholder {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
   width: 100%;
   max-width: 300px;
-  /* optional: controls card size */
   overflow: hidden;
 }
 
@@ -260,7 +248,6 @@ input::placeholder {
   color: var(--gold)
 }
 
-/* tables (library / my reviews) in parchment panel */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -288,7 +275,6 @@ tbody tr:hover {
   background: #5f3125
 }
 
-/* status chip buttons */
 .status-button {
   padding: 6px 10px;
   border-radius: 14px;
@@ -314,7 +300,8 @@ tbody tr:hover {
   background: var(--chip);
   color: var(--ink);
   border: 1px solid var(--gold-deep);
-  background: #3c2c26
+  background: #3c2c26;
+  margin-bottom: 10px;
 }
 
 .category-button.selected {
@@ -322,7 +309,6 @@ tbody tr:hover {
   border-color: #4f6f3e;
 }
 
-/* small helpers */
 .muted {
   color: var(--muted)
 }
@@ -334,20 +320,15 @@ tbody tr:hover {
   margin: 8px 0
 }
 
-/* forms */
 label {
   color: var(--muted)
 }
 
-/* ===== Auth / Forms polish ===== */
-
-/* Page wrapper for auth screens */
 .auth-page h1 {
   text-align: center;
   margin: 16px 0 12px;
 }
 
-/* Panel form and box-sizing to stop overflow */
 .form-panel {
   max-width: 520px;
   margin: 0 auto 20px;
@@ -358,13 +339,11 @@ label {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
 }
 
-/* Prevent inputs from spilling outside the panel */
 .form-panel,
 .form-panel * {
   box-sizing: border-box;
 }
 
-/* Two-column field layout */
 .form-panel .field {
   display: grid;
   grid-template-columns: 160px 1fr;
@@ -373,19 +352,16 @@ label {
   margin-bottom: 14px;
 }
 
-/* Full-width rows (e.g., textarea) */
 .form-panel .field--full {
   grid-template-columns: 1fr;
 }
 
-/* Labels */
 .form-panel label {
   color: var(--muted);
   font-weight: 700;
   margin: 0;
 }
 
-/* Inputs */
 .form-panel input[type="text"],
 .form-panel input[type="email"],
 .form-panel input[type="password"],
@@ -714,7 +690,6 @@ html {
     max-width: 100%;
   }
 
-  /* swap library table for cards */
   .library-table {
     display: none;
   }
@@ -723,7 +698,6 @@ html {
     display: block;
   }
 
-  /* smaller headings */
   h1 {
     font-size: 1.4rem;
   }
@@ -732,7 +706,6 @@ html {
     font-size: 1.3rem;
   }
 
-  /* form labels above inputs */
   .form-panel .field {
     grid-template-columns: 1fr;
   }
@@ -741,7 +714,6 @@ html {
     margin-bottom: 4px;
   }
 
-  /* modal fits screen */
   .modal-content {
     width: 100%;
     max-width: 100%;
@@ -882,7 +854,6 @@ html {
   overflow: hidden;
   text-overflow: ellipsis;
   max-height: calc(1.2em * 3);
-  /* Approximate height for 3 lines */
   line-height: 1.2em;
   text-decoration: underline;
   text-decoration-color: inherit;
