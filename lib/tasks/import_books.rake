@@ -13,7 +13,7 @@ namespace :books do
         title:      row["title"],
         author:     row["author"],
         image_url:  row["image_url"],
-        category:   category.id
+        category_id:   category.id
       )
 
       unless book.save
