@@ -79,12 +79,36 @@
         <%= render "reviews/review_card", review: review, show_book: false %>
       <% end %>
     </div>
+    <p class="muted">Results: <%= @results_start %> - <%= @results_end %> of <%= @reviews_count %></p>
     <div class="review-pagination top-bar">
       <% if @page.positive? %>
         <%= link_to "Back", book_path(@book, page: @page - 1) + "#reviews", class: "btn" %>
+      <% else %>
+        <span class="btn disabled">Back</span>
+      <% end %>
+      <% first_pages = [3, @total_pages].min %>
+      <% (0...first_pages).each do |p| %>
+        <% if p == @page %>
+          <span class="btn"><%= p + 1 %></span>
+        <% else %>
+          <%= link_to p + 1, book_path(@book, page: p) + "#reviews", class: "btn" %>
+        <% end %>
+      <% end %>
+      <% if @total_pages > 3 %>
+        <% if @total_pages > 4 %>
+          <span class="btn">&hellip;</span>
+        <% end %>
+        <% last_page = @total_pages - 1 %>
+        <% if last_page == @page %>
+          <span class="btn"><%= @total_pages %></span>
+        <% else %>
+          <%= link_to @total_pages, book_path(@book, page: last_page) + "#reviews", class: "btn" %>
+        <% end %>
       <% end %>
       <% if @has_next %>
         <%= link_to "Next", book_path(@book, page: @page + 1) + "#reviews", class: "btn" %>
+      <% else %>
+        <span class="btn disabled">Next</span>
       <% end %>
     </div>
   <% else %>
