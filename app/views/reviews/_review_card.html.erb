@@ -1,19 +1,30 @@
 <% show_book = local_assigns.fetch(:show_book, true) %>
 <% sanitized_body = sanitize(review.body, tags: []) %>
 
-<div class="review-card" data-controller="review-modal" id="review-<%= review.id %>">
-  <!-- Header Row: Date + Delete Button -->
+<div class="review-card" id="review-<%= review.id %>">
+  <!-- Header Row: Date + Action Buttons -->
   <div class="review-header" style="display: flex; align-items: center;">
     <p class="date" style="margin: 0;"><%= review.created_at.strftime("%b %d, %Y") %></p>
     <% if review.user == current_user %>
-      <div style="margin-left: auto;" data-controller="confirm">
-        <button type="button" class="btn btn--danger btn--sm" data-action="confirm#open">Delete</button>
-        <div class="modal" data-confirm-target="modal">
-          <div class="modal-content">
-            <p>Delete this review?</p>
-            <div style="display: flex; flex-direction: row; gap: 20px">
-              <%= button_to "Delete", book_review_path(review.book, review), method: :delete, class: "btn btn--danger btn--sm" %>
-              <button type="button" class="btn btn--sm" data-action="confirm#close">Cancel</button>
+      <div style="margin-left: auto; display: flex; gap: 10px;">
+        <div data-controller="review-modal">
+          <button type="button" class="btn btn--sm" data-action="review-modal#open">Edit</button>
+          <div class="modal" data-review-modal-target="modal">
+            <div class="modal-content">
+              <button class="modal-close" data-action="review-modal#close">Close</button>
+              <%= render "reviews/form", review: review, book: review.book %>
+            </div>
+          </div>
+        </div>
+        <div data-controller="confirm">
+          <button type="button" class="btn btn--danger btn--sm" data-action="confirm#open">Delete</button>
+          <div class="modal" data-confirm-target="modal">
+            <div class="modal-content">
+              <p>Delete this review?</p>
+              <div style="display: flex; flex-direction: row; gap: 20px">
+                <%= button_to "Delete", book_review_path(review.book, review), method: :delete, class: "btn btn--danger btn--sm" %>
+                <button type="button" class="btn btn--sm" data-action="confirm#close">Cancel</button>
+              </div>
             </div>
           </div>
         </div>
@@ -32,23 +43,21 @@
   <p class="rating"><strong><%= review.rating %></strong> / 5</p>
 
   <!-- Review Body with Inline "See more" -->
-  <p class="review-body">
-    <% if sanitized_body.length > 150 %>
-      <%= truncate(sanitized_body, length: 150, omission: '...') %>
-      <a href="#" class="see-more-link" data-action="review-modal#open">See more</a>
-    <% else %>
-      <%= sanitized_body %>
-    <% end %>
-  </p>
-
-  <!-- Modal for Full Review -->
   <% if sanitized_body.length > 150 %>
-    <div class="modal" data-review-modal-target="modal">
-      <div class="modal-content">
-        <button class="modal-close" data-action="review-modal#close">Close</button>
-        <p><%= simple_format(sanitized_body) %></p>
+    <div data-controller="review-modal">
+      <p class="review-body">
+        <%= truncate(sanitized_body, length: 150, omission: '...') %>
+        <a href="#" class="see-more-link" data-action="review-modal#open">See more</a>
+      </p>
+      <div class="modal" data-review-modal-target="modal">
+        <div class="modal-content">
+          <button class="modal-close" data-action="review-modal#close">Close</button>
+          <p><%= simple_format(sanitized_body) %></p>
+        </div>
       </div>
     </div>
+  <% else %>
+    <p class="review-body"><%= sanitized_body %></p>
   <% end %>
 
   <!-- Like Section -->

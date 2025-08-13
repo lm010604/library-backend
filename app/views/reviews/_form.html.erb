@@ -1,0 +1,26 @@
+<%= form_with model: [book, review], local: true, html: { class: "form-panel" } do |f| %>
+  <div class="field">
+    <%= f.label :rating %>
+    <div data-controller="rating">
+      <%= f.hidden_field :rating, value: review.rating, data: { rating_target: "input" } %>
+      <div class="star-rating" data-rating-target="stars">
+        <% (1..5).each do |star| %>
+          <span
+            class="star"
+            data-action="click->rating#set mouseover->rating#hover mouseout->rating#resetHover"
+            data-rating-value="<%= star %>"
+          >★</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field field--full">
+    <%= f.label :body, "Your review (optional)" %>
+    <%= f.text_area :body, rows: 6, placeholder: "What did you think?" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit review.persisted? ? "Update review" : "Post review" %>
+  </div>
+<% end %>
