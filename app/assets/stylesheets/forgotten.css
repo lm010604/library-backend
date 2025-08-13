@@ -734,6 +734,12 @@ html {
     max-width: 100%;
     pointer-events: auto;
   }
+
+  .review-modal-content {
+    width: 100%;
+    max-width: 100%;
+    pointer-events: auto;
+  }
 }
 
 .modal {
@@ -759,7 +765,8 @@ html {
   opacity: 1;
 }
 
-.modal-content {
+.modal-content, 
+.review-modal-content {
   background: var(--panel);
   border: 1px solid var(--gold-deep);
   border-radius: 6px;
@@ -771,15 +778,24 @@ html {
   box-sizing: border-box;
   margin: 0 auto;
   pointer-events: auto;
+  position: relative;
+}
+
+.review-modal-content {
+  width: 600px;
+  max-width: 600px;
+  padding-top: 40px;
 }
 
 .modal-close {
   background: none;
   border: none;
-  float: right;
   font-size: 16px;
   cursor: pointer;
   color: var(--ink);
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .star-rating {

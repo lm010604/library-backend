@@ -10,7 +10,7 @@
         <div data-controller="review-modal">
           <button type="button" class="btn btn--sm" data-action="review-modal#open">Edit</button>
           <div class="modal" data-review-modal-target="modal">
-            <div class="modal-content">
+            <div class="review-modal-content">
               <button class="modal-close" data-action="review-modal#close">Close</button>
               <%= render "reviews/form", review: review, book: review.book %>
             </div>
