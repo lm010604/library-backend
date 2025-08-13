@@ -1,23 +1,22 @@
 require "test_helper"
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get books_index_url
-    assert_response :success
+  setup do
+    @category = categories(:one)
   end
 
-  test "should get new" do
-    get books_new_url
-    assert_response :success
-  end
+  test "paginates search results" do
+    35.times do |i|
+      Book.create!(title: "Example #{i}", author: "Author #{i}", category: @category)
+    end
 
-  test "should get create" do
-    get books_create_url
+    get books_path(q: "Example")
     assert_response :success
-  end
+    assert_select ".book-card", 30
 
-  test "should get destroy" do
-    get books_destroy_url
+    get books_path(q: "Example", page: 1)
     assert_response :success
+    assert_select ".book-card", 5
   end
 end
+

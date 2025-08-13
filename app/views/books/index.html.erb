@@ -8,12 +8,45 @@
 </div>
 
 <% if @query.present? %>
-  <p class="muted">Showing <%= @books.size %> result(s) for “<%= @query %>”.</p>
-  <% if @books.any? %>
+  <% if @books_count.positive? %>
     <div class="book-grid">
       <% @books.each do |book| %>
         <%= render "book_card", book: book %>
       <% end %>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+      <p class="muted">Results: <%= @results_start %> - <%= @results_end %> of <%= @books_count %> for “<%= @query %>”.</p>
+      <div class="review-pagination top-bar">
+        <% if @page.positive? %>
+          <%= link_to "Back", books_path(q: @query, page: @page - 1), class: "btn" %>
+        <% else %>
+          <span class="btn disabled">Back</span>
+        <% end %>
+        <% first_pages = [3, @total_pages].min %>
+        <% (0...first_pages).each do |p| %>
+          <% if p == @page %>
+            <span class="btn"><%= p + 1 %></span>
+          <% else %>
+            <%= link_to p + 1, books_path(q: @query, page: p), class: "btn" %>
+          <% end %>
+        <% end %>
+        <% if @total_pages > 3 %>
+          <% if @total_pages > 4 %>
+            <span class="btn">&hellip;</span>
+          <% end %>
+          <% last_page = @total_pages - 1 %>
+          <% if last_page == @page %>
+            <span class="btn"><%= @total_pages %></span>
+          <% else %>
+            <%= link_to @total_pages, books_path(q: @query, page: last_page), class: "btn" %>
+          <% end %>
+        <% end %>
+        <% if @has_next %>
+          <%= link_to "Next", books_path(q: @query, page: @page + 1), class: "btn" %>
+        <% else %>
+          <span class="btn disabled">Next</span>
+        <% end %>
+      </div>
     </div>
   <% else %>
     <p class="muted">No matches. Try another keyword.</p>
