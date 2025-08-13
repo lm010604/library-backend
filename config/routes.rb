@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       post   :add_to_library                            # login required
       delete :remove_from_library                       # login required
     end
+    collection do
+      get :more_favorites
+    end
   end
 
   get "my/reviews", to: "reviews#index", as: :my_reviews

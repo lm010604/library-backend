@@ -60,10 +60,15 @@
 
   <% @personalized_sections.each do |section| %>
     <h3><%= section[:category].name %></h3>
-    <div class="book-grid">
+    <div class="book-row" 
+         data-controller="favorite-scroll"
+         data-favorite-scroll-category-id-value="<%= section[:category].id %>"
+         data-favorite-scroll-offset-value="<%= section[:books].size %>"
+         data-favorite-scroll-limit-value="20">
       <% section[:books].each do |book| %>
         <%= render "book_card", book: book %>
       <% end %>
+      <div class="loader hidden" data-favorite-scroll-target="loader">Loading...</div>
     </div>
   <% end %>
 <% end %>
