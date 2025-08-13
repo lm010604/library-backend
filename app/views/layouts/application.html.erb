@@ -32,8 +32,10 @@
                 <div class="modal" data-confirm-target="modal">
                   <div class="modal-content">
                     <p>Are you sure?</p>
-                    <%= button_to "Sign out", session_path, method: :delete, class: "btn" %>
-                    <button type="button" class="btn" data-action="confirm#close">Cancel</button>
+                    <div style="display: flex; flex-direction: row; gap: 20px">
+                      <%= button_to "Sign out", session_path, method: :delete, class: "btn" %>
+                      <button type="button" class="btn" data-action="confirm#close">Cancel</button>
+                    </div>
                   </div>
                 </div>
               </span>

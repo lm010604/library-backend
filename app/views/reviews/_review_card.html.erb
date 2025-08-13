@@ -11,8 +11,10 @@
         <div class="modal" data-confirm-target="modal">
           <div class="modal-content">
             <p>Delete this review?</p>
-            <%= button_to "Delete", book_review_path(review.book, review), method: :delete, class: "btn btn--danger btn--sm" %>
-            <button type="button" class="btn btn--sm" data-action="confirm#close">Cancel</button>
+            <div style="display: flex; flex-direction: row; gap: 20px">
+              <%= button_to "Delete", book_review_path(review.book, review), method: :delete, class: "btn btn--danger btn--sm" %>
+              <button type="button" class="btn btn--sm" data-action="confirm#close">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
