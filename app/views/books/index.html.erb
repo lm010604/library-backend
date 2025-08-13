@@ -29,7 +29,7 @@
     <h3><%= section[:category].name %></h3>
     <div class="book-grid">
       <% section[:books].each do |book| %>
-          <%= render "book_card", book: book %>
+        <%= render "book_card", book: book %>
       <% end %>
     </div>
   <% end %>

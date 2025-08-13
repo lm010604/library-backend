@@ -211,6 +211,17 @@ input::placeholder {
   margin-top: 10px;
 }
 
+.book-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.book-row > * {
+  flex: 0 0 auto;
+}
+
 .book-card {
   display: flex;
   flex-direction: column;
@@ -666,81 +677,7 @@ html {
   gap: 8px
 }
 
-@media (max-width: 600px) {
-  .header-inner {
-    flex-wrap: wrap;
-  }
 
-  .nav {
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-    margin-top: 8px;
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .nav-toggle {
-    display: block;
-  }
-
-  .review-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* search form stacks vertically */
-  .search-wrap form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .search-wrap input[type="text"],
-  .search-wrap input[type="search"],
-  .search-wrap .btn {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .library-table {
-    display: none;
-  }
-
-  .library-cards {
-    display: block;
-  }
-
-  h1 {
-    font-size: 1.4rem;
-  }
-
-  .book-show h1 {
-    font-size: 1.3rem;
-  }
-
-  .form-panel .field {
-    grid-template-columns: 1fr;
-  }
-
-  .form-panel label {
-    margin-bottom: 4px;
-  }
-
-  .modal-content {
-    width: 100%;
-    max-width: 100%;
-    pointer-events: auto;
-  }
-
-  .review-modal-content {
-    width: 100%;
-    max-width: 100%;
-    pointer-events: auto;
-  }
-}
 
 .modal {
   display: none;
@@ -783,7 +720,6 @@ html {
 
 .review-modal-content {
   width: 600px;
-  max-width: 600px;
   padding-top: 40px;
 }
 
@@ -858,6 +794,84 @@ html {
   min-width: 100px;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (max-width: 600px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* search form stacks vertically */
+  .search-wrap form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-wrap input[type="text"],
+  .search-wrap input[type="search"],
+  .search-wrap .btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .library-table {
+    display: none;
+  }
+
+  .library-cards {
+    display: block;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .book-show h1 {
+    font-size: 1.3rem;
+  }
+
+  .form-panel .field {
+    grid-template-columns: 1fr;
+  }
+
+  .form-panel label {
+    margin-bottom: 4px;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    pointer-events: auto;
+  }
+
+  .review-modal-content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    pointer-events: auto;
+  }
 }
 
 @media (max-width: 600px) {
