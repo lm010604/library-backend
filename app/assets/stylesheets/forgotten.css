@@ -39,12 +39,12 @@ body {
   color: var(--ink);
 }
 
-button,
+/* button,
 input,
 select,
 textarea {
   font-family: inherit;
-}
+} */
 
 .container {
   max-width: 980px;
@@ -218,6 +218,24 @@ input::placeholder {
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 10px;
+    scrollbar-color: var(--gold) var(--panel-dark);
+}
+
+.book-row::-webkit-scrollbar {
+  height: 12px;
+}
+
+.book-row::-webkit-scrollbar-track {
+  background: var(--panel-dark);
+}
+
+.book-row::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+.book-row::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-hover);
 }
 
 .book-row > * {
