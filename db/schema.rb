@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_12_075816) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_13_051259) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,6 +25,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_075816) do
     t.bigint "category_id"
     t.index ["author"], name: "index_books_on_author"
     t.index ["category_id"], name: "index_books_on_category_id"
+    t.index ["title", "author"], name: "index_books_on_title_and_author", unique: true
     t.index ["title"], name: "index_books_on_title"
   end
 
@@ -32,6 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_075816) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "library_entries", force: :cascade do |t|
@@ -64,6 +66,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_12_075816) do
     t.datetime "updated_at", null: false
     t.integer "review_likes_count", default: 0, null: false
     t.index ["book_id"], name: "index_reviews_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_reviews_on_user_id_and_book_id", unique: true
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 

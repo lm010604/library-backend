@@ -8,10 +8,14 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @book   = Book.find(params[:book_id])
-    @review = @book.reviews.new(review_params.merge(user: current_user))
+    @book = Book.find(params[:book_id])
+    @review = Review.find_or_initialize_by(user: current_user, book: @book)
+    @review.assign_attributes(review_params)
+    was_new = @review.new_record?
+
     if @review.save
-      redirect_to @book, notice: "Review posted."
+      message = was_new ? "Review posted." : "Review updated."
+      redirect_to @book, notice: message
     else
       @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
       render "books/show", status: :unprocessable_entity

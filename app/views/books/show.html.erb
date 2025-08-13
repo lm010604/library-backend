@@ -35,12 +35,12 @@
 
   <hr class="rule">
   <% if logged_in? %>
-    <h3>Write a review</h3>
+    <h3><%= @review.persisted? ? "Edit your review" : "Write a review" %></h3>
     <%= form_with model: [@book, @review], local: true, html: { class: "form-panel" } do |f| %>
       <div class="field">
         <%= f.label :rating %>
         <div data-controller="rating">
-          <%= f.hidden_field :rating, value: 3, data: { rating_target: "input" } %>
+          <%= f.hidden_field :rating, value: @review.rating, data: { rating_target: "input" } %>
           <div class="star-rating" data-rating-target="stars">
             <% (1..5).each do |star| %>
               <span
@@ -59,7 +59,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Post review" %>
+        <%= f.submit @review.persisted? ? "Update review" : "Post review" %>
       </div>
     <% end %>
   <% else %>

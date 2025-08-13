@@ -5,6 +5,7 @@ class Review < ApplicationRecord
 
   validates :rating, presence: true, inclusion: { in: 1..5 }
   validates :body, presence: true
+  validates :user_id, uniqueness: { scope: :book_id, message: "has already reviewed this book" }
 
   before_save :strip_html_from_body
 
