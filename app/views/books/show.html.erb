@@ -35,38 +35,16 @@
 
   <hr class="rule">
   <% if logged_in? %>
-    <h3><%= @review.persisted? ? "Edit your review" : "Write a review" %></h3>
-    <% if @review.errors[:rating].any? %>
-      <div class="alert">
-        <strong>Error:</strong> <%= @review.errors[:rating].first %>
-      </div>
-    <% end %>
-    <%= form_with model: [@book, @review], local: true, html: { class: "form-panel" } do |f| %>
-      <div class="field">
-        <%= f.label :rating %>
-        <div data-controller="rating">
-          <%= f.hidden_field :rating, value: @review.rating, data: { rating_target: "input" } %>
-          <div class="star-rating" data-rating-target="stars">
-            <% (1..5).each do |star| %>
-              <span
-                class="star"
-                data-action="click->rating#set mouseover->rating#hover mouseout->rating#resetHover"
-                data-rating-value="<%= star %>"
-              >★</span>
-            <% end %>
-          </div>
+    <% if @review.persisted? %>
+      <p>You have already reviewed this book.</p>
+    <% else %>
+      <h3>Write a review</h3>
+      <% if @review.errors[:rating].any? %>
+        <div class="alert">
+          <strong>Error:</strong> <%= @review.errors[:rating].first %>
         </div>
-      </div>
-
-      <div class="field field--full">
-        <%= f.label :body, "Your review (optional)" %>
-        <%= f.text_area :body, rows: 6, placeholder: "What did you think?" %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit @review.persisted? ? "Update review" : "Post review" %>
-      </div>
-
+      <% end %>
+      <%= render "reviews/form", review: @review, book: @book %>
     <% end %>
   <% else %>
     <p class="muted"><%= link_to "Sign in", new_session_path %> to write a review.</p>
