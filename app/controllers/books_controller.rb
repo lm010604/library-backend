@@ -23,10 +23,10 @@ class BooksController < ApplicationController
     end
 
     if logged_in?
-      @personalized_sections = current_user.categories.includes(:books).map do |category|
+      @personalized_sections = current_user.categories.map do |category|
         {
           category: category,
-          books: category.books.limit(6)
+          books: category.books.limit(20)
         }
       end
     end
@@ -59,7 +59,7 @@ class BooksController < ApplicationController
     end
   end
 
-  before_action :require_login, only: [ :add_to_library, :remove_from_library ]
+  before_action :require_login, only: [ :add_to_library, :remove_from_library, :more_favorites ]
 
   def add_to_library
     book = Book.find(params[:id])
@@ -73,5 +73,15 @@ class BooksController < ApplicationController
     book = Book.find(params[:id])
     current_user.library_entries.find_by(book: book)&.destroy
     redirect_back fallback_location: library_entries_path, notice: "Removed from your library."
+  end
+
+  def more_favorites
+    category = current_user.categories.find_by(id: params[:category_id])
+    return head :not_found unless category
+
+    offset = params[:offset].to_i
+    limit = params.fetch(:limit, 20).to_i
+    books = category.books.offset(offset).limit(limit)
+    render partial: "book_card", collection: books, as: :book
   end
 end
