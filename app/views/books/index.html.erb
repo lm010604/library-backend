@@ -56,7 +56,7 @@
 <% end %>
 
 <% if logged_in? && @personalized_sections.present? %>
-  <h2>Your Favorite Categories</h2>
+  <h2 style="margin-top: 40px">Your Favorite Categories</h2>
 
   <% @personalized_sections.each do |section| %>
     <h3><%= section[:category].name %></h3>
