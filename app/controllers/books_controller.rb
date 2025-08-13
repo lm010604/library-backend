@@ -1,13 +1,27 @@
 class BooksController < ApplicationController
   def index
     @query = params[:q].to_s.strip
-    @books = if @query.blank?
-      Book.none
+    @page = params[:page].to_i
+    per_page = 30
+
+    if @query.present?
+      scope = Book.where("title ILIKE :q OR author ILIKE :q", q: "%#{@query}%")
+      @books_count = scope.count
+      offset = @page * per_page
+      @books = scope.order(created_at: :desc)
+                     .offset(offset)
+                     .limit(per_page + 1)
+      @has_next = @books.size > per_page
+      @books = @books.first(per_page)
+      @total_pages = (@books_count.to_f / per_page).ceil
+      @results_start = offset + 1
+      @results_end = [ offset + @books.size, @books_count ].min
     else
-      Book.where("title ILIKE :q OR author ILIKE :q", q: "%#{@query}%")
-          .order(created_at: :desc)
-          .limit(30)
+      @books = Book.none
+      @books_count = 0
+      @has_next = false
     end
+
     if logged_in?
       @personalized_sections = current_user.categories.includes(:books).map do |category|
         {
