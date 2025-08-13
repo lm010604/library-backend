@@ -34,6 +34,10 @@ class BooksController < ApplicationController
                      .limit(per_page + 1)
     @has_next = @reviews.size > per_page
     @reviews = @reviews.first(per_page)
+    @reviews_count = @book.reviews.count
+    @total_pages = (@reviews_count.to_f / per_page).ceil
+    @results_start = offset + 1
+    @results_end = [offset + @reviews.size, @reviews_count].min
     if logged_in?
       @review = current_user.reviews.find_by(book: @book) || @book.reviews.new(user: current_user)
     else
