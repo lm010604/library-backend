@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       delete :remove_from_library                       # login required
     end
     collection do
+      get :favorites
       get :more_favorites
     end
   end
