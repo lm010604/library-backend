@@ -59,7 +59,7 @@ class BooksController < ApplicationController
     end
   end
 
-  before_action :require_login, only: [ :add_to_library, :remove_from_library, :more_favorites ]
+  before_action :require_login, only: [ :add_to_library, :remove_from_library, :more_favorites, :favorites ]
 
   def add_to_library
     book = Book.find(params[:id])
@@ -83,5 +83,22 @@ class BooksController < ApplicationController
     limit = params.fetch(:limit, 20).to_i
     books = category.books.offset(offset).limit(limit)
     render partial: "book_card", collection: books, as: :book
+  end
+
+  def favorites
+    @category = current_user.categories.find_by(id: params[:category_id])
+    return redirect_to books_path, alert: "Category not found" unless @category
+
+    per_page = 30
+    @page = params[:page].to_i
+    offset = @page * per_page
+    scope = @category.books
+    @books_count = scope.count
+    @books = scope.offset(offset).limit(per_page + 1)
+    @has_next = @books.size > per_page
+    @books = @books.first(per_page)
+    @total_pages = (@books_count.to_f / per_page).ceil
+    @results_start = offset + 1
+    @results_end = [ offset + @books.size, @books_count ].min
   end
 end

@@ -216,10 +216,33 @@ input::placeholder {
   gap: 14px;
   margin-top: 10px;
   overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 10px;
 }
 
 .book-row > * {
   flex: 0 0 auto;
+}
+
+.favorite-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.favorite-category-header h3 {
+  margin: 0;
+}
+
+.see-more-btn {
+  margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+  .see-more-btn {
+    display: none;
+  }
 }
 
 .book-card {
