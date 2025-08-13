@@ -6,11 +6,15 @@
   <div class="review-header" style="display: flex; align-items: center;">
     <p class="date" style="margin: 0;"><%= review.created_at.strftime("%b %d, %Y") %></p>
     <% if review.user == current_user %>
-      <div style="margin-left: auto;">
-        <%= button_to "Delete", book_review_path(review.book, review),
-              method: :delete,
-              data: { turbo_confirm: "Delete this review?" },
-              class: "btn btn--danger btn--sm" %>
+      <div style="margin-left: auto;" data-controller="confirm">
+        <button type="button" class="btn btn--danger btn--sm" data-action="confirm#open">Delete</button>
+        <div class="modal" data-confirm-target="modal">
+          <div class="modal-content">
+            <p>Delete this review?</p>
+            <%= button_to "Delete", book_review_path(review.book, review), method: :delete, class: "btn btn--danger btn--sm" %>
+            <button type="button" class="btn btn--sm" data-action="confirm#close">Cancel</button>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
