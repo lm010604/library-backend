@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :require_login, only: [ :index, :create, :destroy ]
+  before_action :require_login, only: [ :index, :create, :update, :destroy ]
 
   def index
     @reviews = current_user.reviews
@@ -9,25 +9,39 @@ class ReviewsController < ApplicationController
 
   def create
     @book = Book.find(params[:book_id])
-    @review = Review.find_or_initialize_by(user: current_user, book: @book)
+    @review = current_user.reviews.new(book: @book)
     @review.assign_attributes(review_params)
-    was_new = @review.new_record?
 
     if @review.save
-      message = was_new ? "Review posted." : "Review updated."
-      redirect_to @book, notice: message
+      redirect_to @book, notice: "Review posted."
     else
       @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
       render "books/show", status: :unprocessable_entity
     end
   end
 
+  def update
+    @book = Book.find(params[:book_id])
+    @review = @book.reviews.find(params[:id])
+
+    unless @review.user == current_user
+      redirect_to @book, alert: "Not authorized."
+      return
+    end
+
+    if @review.update(review_params)
+      redirect_to @book, notice: "Review updated."
+    else
+      @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
+      render "books/show", status: :unprocessable_entity
+    end
+  end
   def destroy
     @book   = Book.find(params[:book_id])
     @review = @book.reviews.find(params[:id])
     if @review.user == current_user
       @review.destroy
-      redirect_to @book, notice: "Review deleted."
+      redirect_back fallback_location: my_reviews_path, notice: "Review deleted."
     else
       redirect_to @book, alert: "Not authorized."
     end

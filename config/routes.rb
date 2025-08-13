@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "books#index"
 
   resources :books, only: [ :index, :show ] do
-    resources :reviews, only: [ :create, :destroy ]      # login required
+    resources :reviews, only: [ :create, :update, :destroy ]      # login required
     member do
       post   :add_to_library                            # login required
       delete :remove_from_library                       # login required

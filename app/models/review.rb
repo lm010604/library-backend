@@ -3,8 +3,8 @@ class Review < ApplicationRecord
   belongs_to :user
   has_many :review_likes, dependent: :destroy
 
-  validates :rating, presence: true, inclusion: { in: 1..5 }
-  validates :body, presence: true
+  validates :rating, presence: { message: "Please select a rating." }, inclusion: { in: 1..5 }
+  # validates :body, presence: true
   validates :user_id, uniqueness: { scope: :book_id, message: "has already reviewed this book" }
 
   before_save :strip_html_from_body
