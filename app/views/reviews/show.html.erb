@@ -2,6 +2,7 @@
 
 <div class="comments-section">
   <h3><%= pluralize(@review.comments.count, 'Comment') %></h3>
+  <hr class="rule">
   <% @comments.each do |comment| %>
     <%= render "comments/comment", comment: comment %>
   <% end %>
