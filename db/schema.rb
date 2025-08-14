@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_13_051259) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_14_055627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_051259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "review_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "likes", default: 0
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["review_id"], name: "index_comments_on_review_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "library_entries", force: :cascade do |t|
@@ -88,6 +100,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_051259) do
   end
 
   add_foreign_key "books", "categories"
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "reviews"
+  add_foreign_key "comments", "users"
   add_foreign_key "library_entries", "books"
   add_foreign_key "library_entries", "users"
   add_foreign_key "review_likes", "reviews"

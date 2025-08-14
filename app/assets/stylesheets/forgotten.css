@@ -39,13 +39,6 @@ body {
   color: var(--ink);
 }
 
-/* button,
-input,
-select,
-textarea {
-  font-family: inherit;
-} */
-
 .container {
   max-width: 980px;
   margin: 0 auto;
