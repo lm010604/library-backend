@@ -71,4 +71,16 @@
       <% end %>
     <% end %>
   </div>
+
+  <!-- Comments Section -->
+  <div class="comments-section">
+    <% review.comments.order(created_at: :asc).each do |comment| %>
+      <%= render "comments/comment", comment: comment %>
+    <% end %>
+    <% if logged_in? %>
+      <%= render "comments/form", review: review %>
+    <% else %>
+      <p class="muted"><%= link_to "Sign in", new_session_path %> to comment.</p>
+    <% end %>
+  </div>
 </div>
