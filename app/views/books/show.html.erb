@@ -32,7 +32,6 @@
       <% end %>
     </div>
   </div>
-
   <hr class="rule">
   <% if logged_in? %>
     <% if @review.persisted? %>
@@ -49,10 +48,7 @@
   <% else %>
     <p class="muted"><%= link_to "Sign in", new_session_path %> to write a review.</p>
   <% end %>
-  
-
   <hr class="rule">
-
   <h3 id="reviews">Reviews</h3>
   <% if @reviews.any? %>
     <div class="review-grid">

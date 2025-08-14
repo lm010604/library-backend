@@ -1,11 +1,9 @@
 <h1><%= @category.name %></h1>
-
 <div class="book-grid">
   <% @books.each do |book| %>
     <%= render "book_card", book: book %>
   <% end %>
 </div>
-
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
   <p class="muted">Results: <%= @results_start %> - <%= @results_end %> of <%= @books_count %></p>
   <div class="review-pagination top-bar">
