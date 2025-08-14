@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_14_055627) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,6 +39,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_055627) do
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "review_id", null: false
+    t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "likes", default: 0

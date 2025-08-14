@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [] do
     resource :like, only: [ :create, :destroy ], controller: "review_likes"
+    resources :comments, only: [ :create, :destroy ]
   end
 
   resources :library_entries, only: [ :index ] do
