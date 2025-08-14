@@ -26,3 +26,22 @@ a:visited {
 .brand:visited {
   color: #fff4de;
 }
+
+.hidden {
+  display: none;
+}
+
+/* Comment replies */
+.comment-reply {
+  margin-left: 1rem;
+  position: relative;
+}
+
+.comment-reply::before {
+  content: "";
+  position: absolute;
+  left: -0.5rem;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--gold)
+}
