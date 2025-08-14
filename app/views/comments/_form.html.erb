@@ -1,8 +1,9 @@
 <% parent = local_assigns[:parent] %>
+<% reply_to = local_assigns[:reply_to] %>
 <%= form_with model: [review, Comment.new], local: true do |f| %>
   <%= f.hidden_field :parent_id, value: parent.id if parent %>
   <div class="field field--full">
-    <%= f.text_area :body, rows: 2, placeholder: "Add a comment" %>
+    <%= f.text_area :body, rows: 2, placeholder: "Add a comment", value: (reply_to ? "@#{reply_to.user.name} " : nil) %>
   </div>
   <div class="actions">
     <%= f.submit "Post", class: "btn btn--sm" %>

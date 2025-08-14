@@ -18,4 +18,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal parent, reply.parent
     assert_includes parent.replies, reply
   end
+
+  test "replying to a reply stays at second level" do
+    parent = comments(:one)
+    reply = Comment.create!(user: users(:two), review: reviews(:one), body: "Reply", parent: parent)
+    second_reply = Comment.create!(user: users(:one), review: reviews(:one), body: "Another", parent: reply)
+    assert_equal parent, second_reply.parent
+    assert_includes parent.replies, second_reply
+    assert_not_includes reply.replies, second_reply
+  end
 end
