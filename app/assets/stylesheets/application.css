@@ -45,3 +45,8 @@ a:visited {
   bottom: 0;
   border-left: 1px solid var(--gold)
 }
+
+.comment__actions {
+  font-size: 0.85rem; /* smaller than normal text */
+  color: #666;        /* optional: lighter shade */
+}

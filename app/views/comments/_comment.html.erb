@@ -1,27 +1,34 @@
 <div class="comment" id="comment-<%= comment.id %>" data-controller="comment">
-  
-  <p class="comment__header"><strong><%= comment.user.name %>:</strong> <%= sanitize(comment.body, tags: []) %></p>
-
-  <% if comment.replies.any? %>
-    <p>
-      <a href="#" data-action="comment#toggleReplies" data-comment-target="repliesLink">View <%= pluralize(comment.replies.count, 'reply') %></a>
-    </p>
-    <div data-comment-target="replies" class="hidden">
-      <% comment.replies.order(created_at: :asc).each do |reply| %>
-        <div class="comment-reply">
-          <%= render "comments/comment", comment: reply %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+  <p class="comment__header">
+    <strong><%= comment.user.name %>:</strong>
+    <%= sanitize(comment.body, tags: []) %>
+  </p>
 
   <% if logged_in? %>
-    <p>
+    <p class="comment__actions">
+      <% if comment.replies.any? %>
+        <a href="#" data-action="comment#toggleReplies" data-comment-target="repliesLink">
+          View <%= pluralize(comment.replies.count, 'reply') %>
+        </a> |
+      <% end %>
+
       <a href="#" data-action="comment#toggleForm">Reply</a>
+
       <% if comment.user == current_user %>
         | <%= link_to 'Delete', review_comment_path(comment.review, comment), data: { turbo_method: :delete } %>
       <% end %>
     </p>
+
+    <% if comment.replies.any? %>
+      <div data-comment-target="replies" class="hidden">
+        <% comment.replies.order(created_at: :asc).each do |reply| %>
+          <div class="comment-reply">
+            <%= render "comments/comment", comment: reply %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
     <div class="comment-reply reply-form hidden" data-comment-target="form">
       <%= render "comments/form", review: comment.review, parent: comment, reply_to: comment %>
     </div>

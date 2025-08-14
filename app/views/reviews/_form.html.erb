@@ -1,4 +1,4 @@
-<%= form_with model: [book, review], local: true, html: { class: "form-panel" } do |f| %>
+<%= form_with model: [book, review], local: true, html: { class: review.persisted? ? "edit-form-panel": "form-panel" } do |f| %>
   <div class="field">
     <%= f.label :rating %>
     <div data-controller="rating">
