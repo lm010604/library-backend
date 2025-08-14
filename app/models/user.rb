@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :review_likes, dependent: :destroy
   has_many :liked_reviews, through: :review_likes, source: :review
+  has_many :comments, dependent: :destroy
   has_many :user_categories
   has_many :categories, through: :user_categories
 

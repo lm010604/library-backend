@@ -15,8 +15,9 @@ Rails.application.routes.draw do
 
   get "my/reviews", to: "reviews#index", as: :my_reviews
 
-  resources :reviews, only: [] do
+  resources :reviews, only: [ :show ] do
     resource :like, only: [ :create, :destroy ], controller: "review_likes"
+    resources :comments, only: [ :create, :destroy ]
   end
 
   resources :library_entries, only: [ :index ] do

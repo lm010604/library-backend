@@ -60,7 +60,6 @@
     <p class="review-body"><%= sanitized_body %></p>
   <% end %>
 
-  <!-- Like Section -->
   <div class="like-section">
     <span class="like-count"><%= pluralize(review.review_likes.size, 'like') %></span>
     <% if logged_in? && review.user != current_user %>
@@ -71,4 +70,9 @@
       <% end %>
     <% end %>
   </div>
+  <% if local_assigns.fetch(:show_comments_link, true) %>
+    <div class="comments-link">
+      <%= link_to pluralize(review.comments.count, 'comment'), review_path(review) %>
+    </div>
+  <% end %>
 </div>

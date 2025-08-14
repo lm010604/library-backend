@@ -1,0 +1,18 @@
+<div class="comment" id="comment-<%= comment.id %>">
+  <p><strong><%= comment.user.name %>:</strong> <%= sanitize(comment.body, tags: []) %></p>
+  <% if logged_in? && comment.user == current_user %>
+    <%= button_to 'Delete', review_comment_path(comment.review, comment), method: :delete, class: 'btn btn--sm' %>
+  <% end %>
+
+  <% comment.replies.order(created_at: :asc).each do |reply| %>
+    <div class="comment-reply" style="margin-left: 20px;">
+      <%= render "comments/comment", comment: reply %>
+    </div>
+  <% end %>
+
+  <% if logged_in? %>
+    <div class="reply-form" style="margin-left: 20px;">
+      <%= render "comments/form", review: comment.review, parent: comment %>
+    </div>
+  <% end %>
+</div>

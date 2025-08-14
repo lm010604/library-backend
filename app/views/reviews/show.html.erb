@@ -1,0 +1,13 @@
+<%= render "reviews/review_card", review: @review, show_book: false, show_comments_link: false %>
+
+<div class="comments-section">
+  <h3><%= pluralize(@review.comments.count, 'Comment') %></h3>
+  <% @comments.each do |comment| %>
+    <%= render "comments/comment", comment: comment %>
+  <% end %>
+  <% if logged_in? %>
+    <%= render "comments/form", review: @review %>
+  <% else %>
+    <p class="muted"><%= link_to "Sign in", new_session_path %> to comment.</p>
+  <% end %>
+</div>

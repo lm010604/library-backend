@@ -3,8 +3,13 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = current_user.reviews
-                           .includes(:book, :review_likes)
+                           .includes(:book, :review_likes, :comments)
                            .order(created_at: :desc)
+  end
+
+  def show
+    @review = Review.includes(:book, :user, :review_likes, comments: [ :user, { replies: :user } ]).find(params[:id])
+    @comments = @review.comments.where(parent_id: nil).includes(:user, replies: :user).order(created_at: :asc)
   end
 
   def create
@@ -15,7 +20,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to @book, notice: "Review posted."
     else
-      @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
+      @reviews = @book.reviews.includes(:user, :review_likes, :comments).order(created_at: :desc)
       render "books/show", status: :unprocessable_entity
     end
   end
@@ -32,7 +37,7 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to @book, notice: "Review updated."
     else
-      @reviews = @book.reviews.includes(:user, :review_likes).order(created_at: :desc)
+      @reviews = @book.reviews.includes(:user, :review_likes, :comments).order(created_at: :desc)
       render "books/show", status: :unprocessable_entity
     end
   end

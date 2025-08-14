@@ -1,0 +1,10 @@
+<% parent = local_assigns[:parent] %>
+<%= form_with model: [review, Comment.new], local: true do |f| %>
+  <%= f.hidden_field :parent_id, value: parent.id if parent %>
+  <div class="field field--full">
+    <%= f.text_area :body, rows: 2, placeholder: "Add a comment" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Post", class: "btn btn--sm" %>
+  </div>
+<% end %>

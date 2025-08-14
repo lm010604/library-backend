@@ -42,7 +42,7 @@ class BooksController < ApplicationController
     per_page = 6
     @page = params[:page].to_i
     offset = @page * per_page
-    @reviews = @book.reviews.includes(:user, :review_likes)
+    @reviews = @book.reviews.includes(:user, :review_likes, :comments)
                      .order(created_at: :desc)
                      .offset(offset)
                      .limit(per_page + 1)

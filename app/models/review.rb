@@ -2,6 +2,7 @@ class Review < ApplicationRecord
   belongs_to :book
   belongs_to :user
   has_many :review_likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :rating, presence: { message: "Please select a rating." }, inclusion: { in: 1..5 }
   # validates :body, presence: true
