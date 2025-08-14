@@ -1,9 +1,6 @@
 <div class="comment" id="comment-<%= comment.id %>" data-controller="comment">
   
   <p class="comment__header"><strong><%= comment.user.name %>:</strong> <%= sanitize(comment.body, tags: []) %></p>
-  <% if logged_in? && comment.user == current_user %>
-    <%= button_to 'Delete', review_comment_path(comment.review, comment), method: :delete, class: 'btn btn--sm' %>
-  <% end %>
 
   <% if comment.replies.any? %>
     <p>
@@ -21,9 +18,12 @@
   <% if logged_in? %>
     <p>
       <a href="#" data-action="comment#toggleForm">Reply</a>
+      <% if comment.user == current_user %>
+        | <%= link_to 'Delete', review_comment_path(comment.review, comment), data: { turbo_method: :delete } %>
+      <% end %>
     </p>
     <div class="comment-reply reply-form hidden" data-comment-target="form">
-      <%= render "comments/form", review: comment.review, parent: comment %>
+      <%= render "comments/form", review: comment.review, parent: comment, reply_to: comment %>
     </div>
   <% end %>
 </div>
