@@ -34,8 +34,7 @@ body {
 body {
   margin: 0;
   font-family: "adobe-garamond-pro", Georgia, "Times New Roman", serif;
-  background:
-    linear-gradient(90deg, var(--page) 0, var(--page) 15%, var(--bg) 15%, var(--bg) 85%, var(--page) 85%, var(--page) 100%);
+  background: linear-gradient(90deg, var(--page) 0, var(--page) 15%, var(--bg) 15%, var(--bg) 85%, var(--page) 85%, var(--page) 100%);
   color: var(--ink);
 }
 
@@ -211,7 +210,7 @@ input::placeholder {
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 10px;
-    scrollbar-color: var(--gold) var(--panel-dark);
+  scrollbar-color: var(--gold) var(--panel-dark);
 }
 
 .book-row::-webkit-scrollbar {
@@ -231,7 +230,7 @@ input::placeholder {
   background: var(--gold-hover);
 }
 
-.book-row > * {
+.book-row>* {
   flex: 0 0 auto;
 }
 
@@ -381,7 +380,8 @@ label {
   margin: 16px 0 12px;
 }
 
-.form-panel {
+.form-panel,
+.edit-form-panel {
   max-width: 520px;
   margin: 0 auto 20px;
   padding: 20px;
@@ -391,12 +391,21 @@ label {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
 }
 
+.edit-form-panel {
+  border: 0px var(--panel);
+  margin-bottom: 0px;
+  height: 420px;
+}
+
 .form-panel,
-.form-panel * {
+.form-panel *,
+.edit-form-panel,
+.edit-form-panel * {
   box-sizing: border-box;
 }
 
-.form-panel .field {
+.form-panel .field,
+.edit-form-panel .field {
   display: grid;
   grid-template-columns: 160px 1fr;
   align-items: center;
@@ -404,23 +413,28 @@ label {
   margin-bottom: 14px;
 }
 
-.form-panel .field--full {
+.form-panel .field--full,
+.edit-form-panel .field--full {
   grid-template-columns: 1fr;
 }
 
-.form-panel label {
+.form-panel label,
+.edit-form-panel label {
   color: var(--muted);
   font-weight: 700;
   margin: 0;
 }
 
 .form-panel input[type="text"],
+.edit-form-panel input[type="text"],
 .form-panel input[type="email"],
 .form-panel input[type="password"],
 .form-panel input[type="search"],
 .form-panel input[type="number"],
 .form-panel select,
-.form-panel textarea {
+.form-panel textarea,
+.edit-form-panel select,
+.edit-form-panel textarea {
   width: 100%;
   max-width: 100%;
   padding: 10px 12px;
@@ -432,27 +446,37 @@ label {
   outline: none;
 }
 
-.form-panel textarea {
+.edit-form-panel textarea {
+  height: 250px;
+}
+
+.form-panel textarea .edit-form-panel textarea {
   min-height: 120px;
   resize: vertical;
 }
 
 .form-panel input::placeholder,
-.form-panel textarea::placeholder {
+.form-panel textarea::placeholder,
+.edit-form-panel input::placeholder,
+.edit-form-panel textarea::placeholder {
   color: #d2b992;
 }
 
 /* Focus ring */
 .form-panel input:focus,
 .form-panel select:focus,
-.form-panel textarea:focus {
+.form-panel textarea:focus,
+.edit-form-panel input:focus,
+.edit-form-panel select:focus,
+.edit-form-panel textarea:focus {
   border-color: var(--gold-deep);
   box-shadow: 0 0 0 3px rgba(202, 163, 82, .18);
   background: #351810;
 }
 
 /* Actions row */
-.form-panel .actions {
+.form-panel .actions,
+.edit-form-panel .actions {
   margin-top: 16px;
   display: flex;
   gap: 8px;
@@ -462,7 +486,9 @@ label {
 
 /* Themed submit buttons (forms only) */
 .form-panel input[type="submit"],
-.form-panel button[type="submit"] {
+.form-panel button[type="submit"],
+.edit-form-panel input[type="submit"],
+.edit-form-panel button[type="submit"] {
   padding: 8px 14px;
   background: linear-gradient(180deg, #8a5a2f, #664521);
   border: 1px solid #7a5329;
@@ -475,12 +501,14 @@ label {
 }
 
 .form-panel input[type="submit"]:hover,
-.form-panel button[type="submit"]:hover {
+.form-panel button[type="submit"]:hover,
+.edit-form-panel input[type="submit"]:hover,
+.edit-form-panel button[type="submit"]:hover {
   filter: brightness(1.06);
 }
 
 /* Autofill tint (Chrome) */
-.form-panel input:-webkit-autofill {
+.form-panel input:-webkit-autofil .edit-form-panel input:-webkit-autofilll {
   -webkit-box-shadow: 0 0 0 1000px #31150f inset !important;
   -webkit-text-fill-color: var(--ink) !important;
 }
@@ -507,13 +535,7 @@ label {
   font-size: 13px
 }
 
-/* .btn--danger {
-  background: linear-gradient(180deg, #b34232, var(--danger));
-  border: 1px solid #b34232;
-  border-bottom-color: #5e1e15;
-  box-shadow: 0 1px 0 #d45845 inset, 0 1px 0 rgba(0, 0, 0, .3);
-} */
-
+/* .btn--danger { background: linear-gradient(180deg, #b34232, var(--danger)); border: 1px solid #b34232; border-bottom-color: #5e1e15; box-shadow: 0 1px 0 #d45845 inset, 0 1px 0 rgba(0, 0, 0, .3); } */
 /* form tweaks reused from earlier forms pack */
 .form-panel,
 .form-panel * {
@@ -711,8 +733,6 @@ html {
   gap: 8px
 }
 
-
-
 .modal {
   display: none;
   position: fixed;
@@ -736,15 +756,15 @@ html {
   opacity: 1;
 }
 
-.modal-content, 
+.modal-content,
 .review-modal-content {
   background: var(--panel);
   border: 1px solid var(--gold-deep);
   border-radius: 6px;
   padding: 20px;
-  max-width: 500px;
+  max-width: 600px;
   min-width: 400px;
-  max-height: 80%;
+  max-height: 100%;
   overflow: auto;
   box-sizing: border-box;
   margin: 0 auto;
@@ -753,19 +773,25 @@ html {
 }
 
 .review-modal-content {
-  width: 600px;
-  padding-top: 40px;
+  width: 500px;
+  padding: 0px;
 }
 
 .modal-close {
-  background: none;
-  border: none;
-  font-size: 16px;
   cursor: pointer;
-  color: var(--ink);
   position: absolute;
   top: 10px;
   right: 10px;
+  display: inline-block;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #8a5a2f, #664521);
+  border: 1px solid #7a5329;
+  border-bottom-color: #4a3117;
+  border-radius: 4px;
+  color: #fff4de;
+  text-decoration: none;
+  font-size: 14px;
+  box-shadow: 0 1px 0 #caa352 inset, 0 1px 0 rgba(0, 0, 0, .3);
 }
 
 .star-rating {
@@ -893,6 +919,14 @@ html {
     margin-bottom: 4px;
   }
 
+  .edit-form-panel .field {
+    grid-template-columns: 1fr;
+  }
+
+  .form-panel label {
+    margin-bottom: 4px;
+  }
+
   .modal-content {
     width: 100%;
     max-width: 100%;
@@ -905,6 +939,47 @@ html {
     max-width: 100%;
     min-width: 0;
     pointer-events: auto;
+  }
+
+  .review-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    /* avoid vertical centering gaps */
+    gap: 8px;
+    /* breathing room when wrapping */
+  }
+
+  .review-header .date {
+    margin: 0;
+    flex: 1 1 auto;
+  }
+
+  .review-header>div {
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .review-card {
+    overflow: visible;
+  }
+
+  .review-modal-content {
+    max-height: 80vh;
+    min-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .edit-form-panel textarea {
+    height: 300px;
   }
 }
 
