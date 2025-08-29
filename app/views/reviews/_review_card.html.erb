@@ -66,8 +66,6 @@
     <% end %>
   </div>
   <% if local_assigns.fetch(:show_comments_link, true) %>
-    <div class="comments-link">
-      <%= link_to pluralize(review.comments.count, 'comment'), review_path(review) %>
-    </div>
+    <%= link_to pluralize(review.comments.count, 'comment'), review_path(review), class: "comments-link" %>
   <% end %>
 </div>

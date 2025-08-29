@@ -7,10 +7,12 @@ a {
   color: var(--gold);
   text-decoration: none;
 }
+
 a:hover {
   color: var(--ink);
   text-decoration: underline;
 }
+
 a:visited {
   color: var(--gold);
 }
@@ -33,20 +35,22 @@ a:visited {
 
 /* Comment replies */
 .comment-reply {
-  margin-left: 1rem;
+  margin-left: 2rem;
   position: relative;
 }
 
 .comment-reply::before {
   content: "";
   position: absolute;
-  left: -0.5rem;
+  left: -1.5rem;
   top: 0;
   bottom: 0;
   border-left: 1px solid var(--gold)
 }
 
 .comment__actions {
-  font-size: 0.85rem; /* smaller than normal text */
-  color: #666;        /* optional: lighter shade */
+  font-size: 0.85rem;
+  /* smaller than normal text */
+  color: #666;
+  /* optional: lighter shade */
 }

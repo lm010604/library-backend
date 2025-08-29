@@ -211,6 +211,13 @@ input::placeholder {
   overflow-y: hidden;
   padding-bottom: 10px;
   scrollbar-color: var(--gold) var(--panel-dark);
+
+  /* Natural inset shadow */
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.25),
+    /* soft fade all around */
+    inset 0 0 40px rgba(0, 0, 0, 0.15);
+  /* extra wide, lighter fade */
 }
 
 .book-row::-webkit-scrollbar {
@@ -262,11 +269,19 @@ input::placeholder {
   border: 1px solid var(--gold-deep);
   border-radius: 6px;
   padding: 12px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
   width: 100%;
   max-width: 300px;
   overflow: hidden;
+
+  /* Keep subtle inner highlight */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    /* main pop shadow */
+    0 1px 2px rgba(0, 0, 0, 0.6);
+  /* sharper edge */
 }
+
 
 .book-actions {
   margin-top: auto;
@@ -416,6 +431,10 @@ label {
 .form-panel .field--full,
 .edit-form-panel .field--full {
   grid-template-columns: 1fr;
+}
+
+.field--full textarea {
+  font: inherit;
 }
 
 .form-panel label,
@@ -589,7 +608,7 @@ label {
   filter: brightness(1.06)
 }
 
-.read-more-link {
+/* .read-more-link {
   display: inline-block;
   margin-left: 6px;
   color: var(--gold);
@@ -599,7 +618,7 @@ label {
 .read-more-link:hover {
   color: var(--gold-light);
   text-decoration: underline;
-}
+} */
 
 html {
   scroll-behavior: smooth;
@@ -701,6 +720,15 @@ html {
 }
 
 .see-more-link:hover {
+  color: var(--gold-deep);
+}
+
+.comments-link {
+  text-decoration: underline;
+  color: var(--gold);
+}
+
+.comments-link:hover {
   color: var(--gold-deep);
 }
 
@@ -942,31 +970,29 @@ html {
   }
 
   .review-header {
-    flex-wrap: wrap;
-    align-items: flex-start;
-    /* avoid vertical centering gaps */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* keeps date left, buttons right */
     gap: 8px;
-    /* breathing room when wrapping */
+    /* optional, for spacing */
+    flex-wrap: nowrap;
+    /* prevent wrapping */
   }
 
-  /* Date on the first line, buttons on the next line */
   .review-header .date {
     margin: 0;
-    /* you already had inline style, keep it tidy */
-    flex: 1 1 auto;
+    flex-shrink: 0;
+    /* don’t let it collapse */
   }
 
-  /* The buttons container that currently has: margin-left:auto; display:flex; gap:10px */
   .review-header>div {
-    margin-left: 0;
-    /* stop pushing it offscreen */
-    width: 100%;
-    /* make it a new row under the date */
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
-    /* allow “Edit” and “Delete” to wrap nicely */
-    justify-content: flex-start;
+    margin-left: auto;
+    /* push to right */
+    flex-shrink: 0;
+    /* don’t let buttons wrap under */
   }
 
   .review-card {
