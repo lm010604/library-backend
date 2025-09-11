@@ -9,7 +9,10 @@ module Mutations
     field :review, Types::ReviewType, null: false
 
     def resolve(id:, **attributes)
+      user = context[:current_user]
+      raise GraphQL::ExecutionError, "Authentication required" unless user
       review = Review.find(id)
+      raise GraphQL::ExecutionError, "Not authorized" unless review.user == user
       review.update!(attributes.compact)
       { review: review }
     end
