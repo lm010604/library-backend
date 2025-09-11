@@ -18,9 +18,18 @@ class LibraryBackendSchema < GraphQL::Schema
 
   # Union and Interface Resolution
   def self.resolve_type(abstract_type, obj, ctx)
-    # TODO: Implement this method
-    # to return the correct GraphQL object type for `obj`
-    raise(GraphQL::RequiredImplementationMissingError)
+    case obj
+    when Book
+      Types::BookType
+    when Review
+      Types::ReviewType
+    when User
+      Types::UserType
+    when Category
+      Types::CategoryType
+    else
+      raise(GraphQL::RequiredImplementationMissingError, "Unexpected object: #{obj}")
+    end
   end
 
   # Limit the size of incoming queries:
