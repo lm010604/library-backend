@@ -23,6 +23,10 @@ class LibraryBackendSchema < GraphQL::Schema
       Types::BookType
     when Review
       Types::ReviewType
+    when Comment
+      Types::CommentType
+    when LibraryEntry
+      Types::LibraryEntryType
     when User
       Types::UserType
     when Category
