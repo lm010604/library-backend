@@ -9,7 +9,10 @@ module Mutations
     field :library_entry, Types::LibraryEntryType, null: false
 
     def resolve(id:, **attributes)
+      user = context[:current_user]
+      raise GraphQL::ExecutionError, "Authentication required" unless user
       entry = LibraryEntry.find(id)
+      raise GraphQL::ExecutionError, "Not authorized" unless entry.user == user
       entry.update!(attributes.compact)
       { library_entry: entry }
     end

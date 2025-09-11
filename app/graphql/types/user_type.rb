@@ -6,6 +6,12 @@ module Types
 
     field :name, String, null: false
     field :email, String, null: false
+
+    def email
+      user = context[:current_user]
+      raise GraphQL::ExecutionError, "Not authorized" unless user == object
+      object.email
+    end
     field :books, [Types::BookType], null: false
     field :reviews, [Types::ReviewType], null: false
     field :categories, [Types::CategoryType], null: false

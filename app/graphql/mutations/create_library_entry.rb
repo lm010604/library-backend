@@ -9,7 +9,9 @@ module Mutations
     field :library_entry, Types::LibraryEntryType, null: false
 
     def resolve(book_id:, status: nil, date_added: nil)
-      entry = LibraryEntry.create!(book_id: book_id, status: status, date_added: date_added, user: context[:current_user])
+      user = context[:current_user]
+      raise GraphQL::ExecutionError, "Authentication required" unless user
+      entry = LibraryEntry.create!(book_id: book_id, status: status, date_added: date_added, user: user)
       { library_entry: entry }
     end
   end

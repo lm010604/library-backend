@@ -9,7 +9,9 @@ module Mutations
     field :review, Types::ReviewType, null: false
 
     def resolve(book_id:, rating:, body: nil)
-      review = Review.create!(book_id: book_id, rating: rating, body: body, user: context[:current_user])
+      user = context[:current_user]
+      raise GraphQL::ExecutionError, "Authentication required" unless user
+      review = Review.create!(book_id: book_id, rating: rating, body: body, user: user)
       { review: review }
     end
   end

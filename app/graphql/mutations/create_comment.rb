@@ -9,7 +9,9 @@ module Mutations
     field :comment, Types::CommentType, null: false
 
     def resolve(review_id:, body:, parent_id: nil)
-      comment = Comment.create!(review_id: review_id, body: body, parent_id: parent_id, user: context[:current_user])
+      user = context[:current_user]
+      raise GraphQL::ExecutionError, "Authentication required" unless user
+      comment = Comment.create!(review_id: review_id, body: body, parent_id: parent_id, user: user)
       { comment: comment }
     end
   end
