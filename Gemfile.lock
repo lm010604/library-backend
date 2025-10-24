@@ -122,12 +122,6 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    graphiql-rails (1.10.5)
-      railties
-    graphql (2.5.11)
-      base64
-      fiber-storage
-      logger
     httparty (0.23.1)
       csv
       mini_mime (>= 1.0.0)
@@ -438,8 +432,6 @@ DEPENDENCIES
   csv (~> 3.3)
   debug
   dotenv-rails
-  graphiql-rails
-  graphql
   httparty
   importmap-rails
   jbuilder
