@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <!-- Keep your Typekit serif for headings -->
     <link rel="stylesheet" href="https://use.typekit.net/oov2wcw.css">
     <%= stylesheet_link_tag "forgotten", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application",  "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <%= javascript_pack_tag "application" %>
+    <%# <%= javascript_importmap_tags %>
+    <%= javascript_pack_tag "hello-world-bundle", "data-turbo-track": "reload", defer: true %>
   </head>
-
   <body>
     <div class="container">
       <!-- banner + gold nav -->
@@ -47,10 +45,12 @@
           </nav>
         </div>
       </div>
-
-      <% if notice.present? %><div class="notice"><%= notice %></div><% end %>
-      <% if alert.present?  %><div class="alert"><%= alert %></div><% end %>
-
+      <% if notice.present? %>
+        <div class="notice"><%= notice %></div>
+      <% end %>
+      <% if alert.present?  %>
+        <div class="alert"><%= alert %></div>
+      <% end %>
       <%= yield %>
     </div>
   </body>
