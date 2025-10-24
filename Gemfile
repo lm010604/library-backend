@@ -74,3 +74,6 @@ gem "httparty"
 gem "ruby-progressbar"
 
 gem "dotenv-rails", groups: [ :development, :test ]
+
+gem "shakapacker", "7.0.1"     # Use the latest and the exact version
+gem "react_on_rails", "13.3.1" # Use the latest and the exact version

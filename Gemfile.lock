@@ -115,6 +115,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.3.0)
       tzinfo
+    execjs (2.10.0)
     fiber-storage (1.0.1)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
@@ -238,6 +239,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.0)
+    rack-proxy (0.7.7)
+      rack
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -281,6 +284,12 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
+    react_on_rails (13.3.1)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 5.2)
+      rainbow (~> 3.0)
     regexp_parser (2.11.0)
     reline (0.6.2)
       io-console (~> 0.5)
@@ -324,6 +333,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    semantic_range (3.1.0)
+    shakapacker (7.0.1)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     solargraph (0.56.2)
       backport (~> 1.2)
       benchmark (~> 0.4)
@@ -433,9 +448,11 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
+  react_on_rails (= 13.3.1)
   rubocop-rails-omakase
   ruby-progressbar
   selenium-webdriver
+  shakapacker (= 7.0.1)
   solargraph
   solid_cable
   solid_cache
