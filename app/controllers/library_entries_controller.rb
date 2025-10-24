@@ -1,4 +1,5 @@
 class LibraryEntriesController < ApplicationController
+  include ReactProps
   before_action :require_login
 
   def index
@@ -10,6 +11,34 @@ class LibraryEntriesController < ApplicationController
       else @entries
       end
     end
+
+    @library_entries_props = {
+      userName: current_user.name,
+      filters: {
+        active: params[:filter],
+        allPath: library_entries_path,
+        readPath: library_entries_path(filter: "read"),
+        notReadYetPath: library_entries_path(filter: "not_read_yet")
+      },
+      entries: @entries.map do |entry|
+        {
+          id: entry.id,
+          book: {
+            title: entry.book.title,
+            path: book_path(entry.book)
+          },
+          dateAddedLabel: entry.date_added&.strftime("%B %d, %Y"),
+          statusLabel: entry.status.humanize,
+          statusClass: entry.status,
+          togglePath: toggle_status_library_entry_path(entry),
+          removePath: remove_from_library_book_path(entry.book)
+        }
+      end,
+      paths: {
+        backToBooks: books_path
+      },
+      csrfToken: react_csrf_token
+    }
   end
 
   def toggle_status
