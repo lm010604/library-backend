@@ -103,3 +103,10 @@ tmp/screenshots/
 .docker/
 docker-compose.override.yml
 docker-compose.local.yml
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

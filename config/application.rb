@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module LibraryBackend
   class Application < Rails::Application
+    config.active_record.query_log_tags_enabled = true
+    config.active_record.query_log_tags = %i[application controller action job]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 

@@ -19,8 +19,12 @@ RUN apt-get update -qq && \
     libvips \
     libyaml-dev \
     pkg-config \
-    postgresql-client && \
+    postgresql-client \
+    nodejs \
+    npm && \
+    npm install --global yarn && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
 
 # Set environment for development
 ENV RAILS_ENV=development \

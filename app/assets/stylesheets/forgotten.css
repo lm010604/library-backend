@@ -546,7 +546,9 @@ label {
 }
 
 .review-body {
-  margin: 0 0 8px
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .btn--sm {
@@ -903,6 +905,12 @@ html {
 
   .nav-toggle {
     display: block;
+  }
+
+  .nav a {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .review-grid {
