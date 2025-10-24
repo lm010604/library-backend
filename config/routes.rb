@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'hello_world', to: 'hello_world#index'
   root "books#index"
 
   resources :books, only: [ :index, :show ] do

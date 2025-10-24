@@ -1,4 +1,7 @@
+require "set"
+
 class BooksController < ApplicationController
+  include ReactProps
   def index
     @query = params[:q].to_s.strip
     @page = params[:page].to_i
@@ -20,6 +23,7 @@ class BooksController < ApplicationController
       @books = Book.none
       @books_count = 0
       @has_next = false
+      @total_pages = 0
     end
 
     if logged_in?
@@ -30,6 +34,43 @@ class BooksController < ApplicationController
         }
       end
     end
+
+    library_book_ids = logged_in? ? current_user.library_entries.pluck(:book_id).to_set : Set.new
+    favorite_sections = if logged_in? && @personalized_sections.present?
+                           @personalized_sections.map do |section|
+                             {
+                               category: {
+                                 id: section[:category].id,
+                                 name: section[:category].name,
+                                 seeMorePath: favorites_books_path(category_id: section[:category].id)
+                               },
+                               books: section[:books].map do |book|
+                                 book_card_props(book, logged_in: logged_in?, library_book_ids: library_book_ids)
+                               end,
+                               offset: section[:books].size,
+                               limit: 20
+                             }
+                           end
+                         else
+                           []
+                         end
+
+    @books_props = {
+      query: @query,
+      searchPath: books_path,
+      booksCount: @books_count,
+      page: @page,
+      totalPages: @total_pages || 0,
+      hasNext: @has_next,
+      resultsStart: @results_start,
+      resultsEnd: @results_end,
+      books: @books.map { |book| book_card_props(book, logged_in: logged_in?, library_book_ids: library_book_ids) },
+      loggedIn: logged_in?,
+      signInPath: new_session_path,
+      csrfToken: react_csrf_token,
+      favoriteSections: favorite_sections,
+      showFavorites: favorite_sections.any?
+    }
   end
 
   def show
@@ -57,6 +98,21 @@ class BooksController < ApplicationController
     else
       @review = Review.new
     end
+
+    library_book_ids = logged_in? ? current_user.library_entries.pluck(:book_id).to_set : Set.new
+
+    @book_show_props = build_book_show_props(
+      book: @book,
+      reviews: @reviews,
+      review_form: @review,
+      page: @page,
+      total_pages: @total_pages,
+      has_next: @has_next,
+      results_start: @results_start,
+      results_end: @results_end,
+      reviews_count: @reviews_count,
+      library_book_ids: library_book_ids
+    )
   end
 
   before_action :require_login, only: [ :add_to_library, :remove_from_library, :more_favorites, :favorites ]
@@ -100,5 +156,30 @@ class BooksController < ApplicationController
     @total_pages = (@books_count.to_f / per_page).ceil
     @results_start = offset + 1
     @results_end = [ offset + @books.size, @books_count ].min
+
+    library_book_ids = current_user.library_entries.pluck(:book_id).to_set
+
+    @favorites_props = {
+      category: {
+        id: @category.id,
+        name: @category.name
+      },
+      books: @books.map { |book| book_card_props(book, logged_in: true, library_book_ids: library_book_ids) },
+      pagination: {
+        page: @page,
+        totalPages: @total_pages,
+        hasNext: @has_next,
+        resultsStart: @results_start,
+        resultsEnd: @results_end,
+        totalCount: @books_count
+      },
+      paths: {
+        backToBooks: books_path,
+        favorites: favorites_books_path(category_id: @category.id),
+        signIn: new_session_path
+      },
+      csrfToken: react_csrf_token
+    }
   end
+
 end

@@ -16,7 +16,6 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -73,3 +72,6 @@ gem "httparty"
 gem "ruby-progressbar"
 
 gem "dotenv-rails", groups: [ :development, :test ]
+
+gem "shakapacker", "7.0.1"     # Use the latest and the exact version
+gem "react_on_rails", "13.3.1" # Use the latest and the exact version
