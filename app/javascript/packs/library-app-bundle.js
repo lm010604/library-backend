@@ -11,7 +11,6 @@ import ReviewsIndex from '../bundles/LibraryApp/components/ReviewsIndex';
 import SessionNew from '../bundles/LibraryApp/components/SessionNew';
 import UserNew from '../bundles/LibraryApp/components/UserNew';
 
-// This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
   BookShow,
   BooksIndex,
