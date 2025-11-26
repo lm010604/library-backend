@@ -10,8 +10,8 @@
   <p>You haven’t posted any reviews yet.</p>
 <% else %>
   <div class="review-grid">
-    <% @reviews.each do |review| %>
-      <%= render "review_card", review: review %>
-    <% end %>
+    <%# <% @reviews.each do |review| %> 
+      <%= render partial: "review_card", collection: @reviews, as: :review %>
+    <%# end %>
   </div>
 <% end %>

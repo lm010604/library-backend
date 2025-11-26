@@ -69,7 +69,7 @@
          data-favorite-scroll-offset-value="<%= section[:books].size %>"
          data-favorite-scroll-limit-value="20">
       <% section[:books].each do |book| %>
-        <%= render "book_card", book: book %>
+        <%= render partial: "book_card", collection: section[:books], as: :book %>
       <% end %>
       <div class="loader hidden" data-favorite-scroll-target="loader">Loading...</div>
     </div>
