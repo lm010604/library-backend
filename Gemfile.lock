@@ -115,11 +115,19 @@ GEM
     erubi (1.13.1)
     et-orbi (1.3.0)
       tzinfo
+    execjs (2.10.0)
+    fiber-storage (1.0.1)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphiql-rails (1.10.5)
+      railties
+    graphql (2.5.11)
+      base64
+      fiber-storage
+      logger
     httparty (0.23.1)
       csv
       mini_mime (>= 1.0.0)
@@ -231,6 +239,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.0)
+    rack-proxy (0.7.7)
+      rack
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -274,12 +284,18 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
+    react_on_rails (13.3.1)
+      addressable
+      connection_pool
+      execjs (~> 2.5)
+      rails (>= 5.2)
+      rainbow (~> 3.0)
     regexp_parser (2.11.0)
     reline (0.6.2)
       io-console (~> 0.5)
     reverse_markdown (3.0.0)
       nokogiri
-    rexml (3.4.1)
+    rexml (3.4.4)
     rubocop (1.79.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -309,14 +325,20 @@ GEM
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
-    rubyzip (2.4.1)
+    rubyzip (3.2.0)
     securerandom (0.4.1)
-    selenium-webdriver (4.34.0)
+    selenium-webdriver (4.37.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
+      rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    semantic_range (3.1.0)
+    shakapacker (7.0.1)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     solargraph (0.56.2)
       backport (~> 1.2)
       benchmark (~> 0.4)
@@ -416,6 +438,8 @@ DEPENDENCIES
   csv (~> 3.3)
   debug
   dotenv-rails
+  graphiql-rails
+  graphql
   httparty
   importmap-rails
   jbuilder
@@ -424,9 +448,11 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
+  react_on_rails (= 13.3.1)
   rubocop-rails-omakase
   ruby-progressbar
   selenium-webdriver
+  shakapacker (= 7.0.1)
   solargraph
   solid_cable
   solid_cache
