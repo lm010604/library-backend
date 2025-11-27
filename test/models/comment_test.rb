@@ -12,6 +12,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal "Hello", comment.body
   end
 
+  test "body cannot exceed 200 characters" do
+    long_body = "a" * 201
+    comment = Comment.new(user: users(:one), review: reviews(:one), body: long_body)
+    assert_not comment.valid?
+    assert_includes comment.errors[:body], "is too long"
+  end
+
   test "can reply to a comment" do
     parent = comments(:one)
     reply = Comment.create!(user: users(:two), review: reviews(:one), body: "Reply", parent: parent)
